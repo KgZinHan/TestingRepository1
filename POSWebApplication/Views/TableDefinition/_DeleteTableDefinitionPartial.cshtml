@@ -1,0 +1,51 @@
+﻿@model TableDefinition
+<form asp-action="Delete" asp-controller="TableDefinition">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" id="popupDialogLabel">Delete Table</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-md-center">
+                        <tr style="font-size: 14px">
+                            <th style="min-width: 60px;text-align: left">
+                                @Html.DisplayNameFor(model => model.TableId)
+                            </th>
+                            <th style="min-width: 120px;text-align: left">
+                                @Html.DisplayNameFor(model => model.TableNo)
+                            </th>
+                            <th style="min-width: 120px;text-align: left">
+                                @Html.DisplayNameFor(model => model.TableStatus)
+                            </th>
+                            <th style="min-width: 120px;text-align: left">
+                                @Html.DisplayNameFor(model => model.Outlet)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-md-center">
+                        <tr style="font-size: 14px">
+                            <input type="hidden" asp-for="@Model.TableId" />
+                            <td style="text-align: left">
+                                @Html.DisplayFor(model => model.TableId)
+                            </td>
+                            <td style="text-align: left">
+                                @Html.DisplayFor(model => model.TableNo)
+                            </td>
+                            <td style="text-align: left">
+                                @Html.DisplayFor(model => model.TableStatus)
+                            </td>
+                            <td style="text-align: left">
+                                @Html.DisplayFor(model => model.Outlet)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="cleanDefaultContainer()">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>

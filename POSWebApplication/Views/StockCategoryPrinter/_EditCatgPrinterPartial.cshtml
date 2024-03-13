@@ -1,0 +1,41 @@
+﻿@model CategoryPrinter
+<form asp-action="Edit" asp-controller="StockCategoryPrinter">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" id="popupDialogLabel">Edit Category Printer</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-md-center">
+                        <tr style="font-size: 14px">
+                            <th style="text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.CatgCde)
+                            </th>
+                            <th style="text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.PrinterNme)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-md-center">
+                        <tr style="font-size: 12px">
+                            <input type="hidden" asp-for="@Model.CatgPrinterId"/>
+                            <td>
+                                <select asp-for="@Model.CatgCde" asp-items="@ViewBag.CatgList" class="form-control form-control-sm form-select">
+                                    <option value=""> - Select One -</option>    
+                                </select>
+                            </td>
+                            <td>
+                                <input asp-for="@Model.PrinterNme" class="form-control form-control-sm" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="cleanDefaultContainer()">Close</button>
+            <button type="submit" class="btn btn-info">Update</button>
+        </div>
+    </div>
+</form>

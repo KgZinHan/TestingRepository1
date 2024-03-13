@@ -1,0 +1,131 @@
+﻿@model IEnumerable<SpecialInstruction>
+
+@{
+    ViewData["Title"] = "Special Instructions List";
+}
+<style>
+    th, td {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+<div class="container-fluid">
+    @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
+    {
+        <div id="defaultContainer"></div>
+        <button class="btn btn-info m-1" onclick="callAddSpecInstrController()">
+            New
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-info m-1" disabled>
+            New
+        </button>
+    }
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Special Instructions</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <table id="reportedDataTable" class="table table-bordered table-hover">
+                <thead class="text-md-center">
+                    <tr style="font-size: 14px">
+                        <th>
+                            Special Instruction
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemId)
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-md-center">
+                    @foreach (var item in Model)
+                    {
+                        <tr style="font-size: 14px">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SpecInstr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemId)
+                            </td>
+                            @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
+                            {
+                                <td>
+                                    <a style="cursor: pointer" onclick="callEditSpecInstrController('@item.SpecInstrId')">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="fas fa-edit"></i>
+                                </td>
+                            }
+                            @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
+                            {
+                                <td>
+                                    <a style="cursor: pointer" onclick="callDeleteSpecInstrController('@item.SpecInstrId')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- CustomJs for Common-->
+<script src="../customjs/Common/Common.js"></script>
+<!-- CustomJs for StockGroup -->
+<script src="../customjs/SpecialInstruction/SpecialInstruction.js"></script>
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $('#reportedDataTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "lengthMenu": [20, 50, 100],
+        });
+    });
+
+    $(function () {
+        setTimeout(() => {
+            $("#messageBox1, #messageBox2").fadeOut();
+        }, 3000);
+    });
+</script>

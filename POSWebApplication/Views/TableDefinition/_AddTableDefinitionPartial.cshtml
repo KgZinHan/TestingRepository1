@@ -1,0 +1,48 @@
+﻿@model TableDefinition
+<form asp-action="Create" asp-controller="TableDefinition">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" id="popupDialogLabel">Create Table</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-md-center">
+                        <tr style="font-size: 14px">
+                            <th style="min-width: 120px;text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.TableNo)
+                            </th>
+                            <th style="min-width: 120px;text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.TableStatus)
+                            </th>
+                            <th style="min-width: 120px;text-align: left">
+                                @Html.DisplayNameFor(model => model.Outlet)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-md-center">
+                        <tr style="font-size: 12px">
+                            <td>
+                                <input type="text" asp-for="@Model.TableNo" class="form-control form-control-sm" />
+                            </td>
+                            <td>
+                                <select asp-for="@Model.TableStatus" class="form-control form-control-sm form-select">
+                                    <option value="Vacant">Vacant</option>
+                                    <option value="Occupied">Occupied</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select asp-for="@Model.Outlet" class="form-control form-control-sm form-select" asp-items="@ViewBag.Outlets">
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="cleanDefaultContainer()">Close</button>
+            <button type="submit" class="btn btn-info">Add</button>
+        </div>
+    </div>
+</form>

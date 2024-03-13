@@ -1,0 +1,39 @@
+﻿@model CategoryPrinter
+<form asp-action="Delete" asp-controller="StockCategoryPrinter">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" id="popupDialogLabel">Delete Category Printer</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-md-center">
+                        <tr style="font-size: 14px">
+                            <th style="text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.CatgCde)
+                            </th>
+                            <th style="text-align: left">
+                                <span style="color: red">*&nbsp;</span>@Html.DisplayNameFor(model => model.PrinterNme)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-md-center">
+                        <tr style="font-size: 12px">
+                            <input type="hidden" asp-for="@Model.CatgPrinterId"/>
+                            <td>
+                                @Html.DisplayFor(model => model.CatgCde)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.PrinterNme)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="cleanDefaultContainer()">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>
