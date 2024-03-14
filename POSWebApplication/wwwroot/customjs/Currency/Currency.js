@@ -6,8 +6,9 @@ function callAddCurrencyController() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -27,8 +28,9 @@ function callEditCurrencyController(CurrId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -48,8 +50,9 @@ function callDeleteCurrencyController(CurrId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 

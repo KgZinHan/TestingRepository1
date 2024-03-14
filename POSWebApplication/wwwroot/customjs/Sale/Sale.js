@@ -33,8 +33,9 @@ function addStockByBarcode() {
           pkgFlg = true;
         }
       },
-      error: function (data) {
-        alert('error');
+      error: function () {
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
 
@@ -52,8 +53,9 @@ function addStockByBarcode() {
             pkgFlg = true;
           }
         },
-        error: function (data) {
-          alert('error');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -121,7 +123,8 @@ function addStockPackage(pkgHId) {
       });
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   })
 }
@@ -545,8 +548,9 @@ function generatedAutoNo() {
     success: function (generatedBillNo) {
       $('#billNoId').val(generatedBillNo); // for new bill no
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -607,8 +611,9 @@ function addDataToTable() {
         printToKitchen(billHId);
         clearAll();
       },
-      error: function (error) {
-        alert('Error occured.');
+      error: function () {
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }
@@ -657,7 +662,8 @@ function chooseBillLookUp() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -914,8 +920,9 @@ function billLookUp(billhId) {
       changeBillDiscount(id);
       changeBillH(id);
     },
-    error: function (data) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -933,8 +940,9 @@ function changeBillNo(billhId) { // Change Bill No. based on the choosed Bill of
     success: function (response) {
       $('#billNoId').val(response);
     },
-    error: function (data) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -956,7 +964,8 @@ function changeBillDiscount(billhId) { // Change Bill Discount based on the choo
       calculateNetAmount();
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -981,7 +990,8 @@ function changeBillH(billhId) { // Change Bill Discount based on the choosed Bil
 
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1028,7 +1038,8 @@ function chooseBillReprint() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1071,7 +1082,8 @@ function chooseBillVoidable() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1150,8 +1162,9 @@ function showBillToVoid(billhId) {
       changeBillH(id);
       $('#hiddenChosenBillHId').val(billhId); // assign to void
     },
-    error: function (data) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1185,7 +1198,8 @@ function voidBill(billhId) {
 
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1235,7 +1249,8 @@ function chooseTableNo() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1324,7 +1339,8 @@ function printToKitchen(billHId) {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -1345,7 +1361,8 @@ function printOrders() {
       location.reload();
     },
     error: function () {
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1389,7 +1406,8 @@ function chooseCustomer() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1427,7 +1445,8 @@ function choosePayment() {
       });
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1555,8 +1574,9 @@ function calculateLocalAmount(currId, amount) {
       localAmount = amount / currency.currRate;
       localAmount = localAmount.toFixed(0);
     },
-    error: function (error) {
-      alert('Error occurred.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -1587,8 +1607,9 @@ function calculateChangeAmount() {
           changeAmount = payAmount - parseInt(netAmountDisplay.val().replace(',', ''));
           changeAmountDisplay.val(changeAmount.toLocaleString());
         },
-        error: function (error) {
-          alert('Error occurred.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -1611,8 +1632,9 @@ function showCurrencyTypeBack(currType) { // showing removed currType again afte
       const clickedPayType = $('#pay-' + currency.currId);
       clickedPayType.show();
     },
-    error: function (error) {
-      alert('Error occurred.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -1697,8 +1719,9 @@ function addAllDataToTables() {
           clearAll();
           printBillSlip(billNo);
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -1726,8 +1749,8 @@ function printBillSlip(billNo) {
       location.reload();
     },
     error: function (error) {
-      console.log(error);
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1860,8 +1883,9 @@ function addAllReturnDataToTables() {
           clearAll();
           printBillSlip(billNo);
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -1910,7 +1934,8 @@ function openBillToRoomModal() {
     },
     error: function () {
       loadingScreen.style.display = "none";
-      alert('Error occurred.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -1941,7 +1966,8 @@ function openCashType(checkinid) {
       });
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -1962,7 +1988,8 @@ function openCashType(checkinid) {
       });
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -2086,8 +2113,10 @@ function billToRoom() {
               location.reload();
             },
             error: function () {
-              alert('Error occurred.');
               closeCashType();
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
+
             }
           });
 
@@ -2141,8 +2170,9 @@ function changeStocks(categoryId) {
       loadingScreen.style.display = "none";
     },
     error: function (data) {
-      alert('error');
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -2160,9 +2190,10 @@ function allStocks() {
       $('#tableContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -2179,8 +2210,9 @@ function assemblyStocks() {
       loadingScreen.style.display = "none";
     },
     error: function (data) {
-      alert('error');
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -2197,9 +2229,10 @@ function packageStocks() {
       $('#tableContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -2221,9 +2254,10 @@ function searchStock(keyword) {
       $('#tableContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }

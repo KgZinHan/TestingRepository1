@@ -1,3 +1,6 @@
+
+/*JS functions for Auto Number*/
+
 function callEditAutoNumberController(AutoNoId) {
 
   var inputData = {
@@ -12,7 +15,8 @@ function callEditAutoNumberController(AutoNoId) {
   }).done(function (data) {
     $('#defaultContainer').html(data);
   }).fail(function () {
-    alert('error');
+    alert('Session Expired!');
+    window.location.href = '/LogIn/Index';  // Redirect to login
   });
 
   scrollToDiv();

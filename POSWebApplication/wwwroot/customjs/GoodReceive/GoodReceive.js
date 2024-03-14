@@ -74,7 +74,8 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('error');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -206,8 +207,9 @@ function updateGoodReceive() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -227,8 +229,9 @@ function updateGoodReceive() {
           refresh();
 
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -321,7 +324,8 @@ function editGoodReceive(arapid, apId) {
             selectLocation.val(goodReceiveDetail.fromLoc);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectLocation));
@@ -342,7 +346,8 @@ function editGoodReceive(arapid, apId) {
               selectItemId.val(goodReceiveDetail.itemId);
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         }
@@ -359,7 +364,8 @@ function editGoodReceive(arapid, apId) {
               selectItemId.val(goodReceiveDetail.itemId);
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         }
@@ -390,7 +396,8 @@ function editGoodReceive(arapid, apId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -417,7 +424,8 @@ function editGoodReceive(arapid, apId) {
             selectUOM.val(goodReceiveDetail.uom);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectUOM.on('change', function () {
@@ -491,8 +499,9 @@ function editGoodReceive(arapid, apId) {
       });
 
     },
-    error: function (error) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -528,7 +537,8 @@ function findGoodReceiveH(arapid) {
       $('#inputPrintRefNo').val(gRH.icRefNo);
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -548,11 +558,12 @@ function deleteGoodReceive() {
         type: 'POST',
         url: '/GoodReceive/DeleteGoodReceiveDetails',
         data: { arapId: arapId },
-        success: function (status) {
+        success: function () {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -577,7 +588,8 @@ function printReview() {
         newWindow.document.write(htmlData); // write return htmlcontent in the new empty window
       },
       error: function () {
-        alert('An error occurred while generating the report. Please try again later.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }

@@ -5,8 +5,9 @@ function callAddSupplierController() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -26,8 +27,9 @@ function callEditSupplierController(ApId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -47,8 +49,9 @@ function callDeleteSupplierController(ApId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -89,7 +92,8 @@ function addSupplierItem() {
       selectItemId.append(fragment);
     },
     error: function () {
-      alert('Error fetching stocks.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -101,7 +105,8 @@ function addSupplierItem() {
         tdItemDesc.text(stock.itemDesc);
       },
       error: function () {
-        alert('Error fetching Stocks.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -172,7 +177,8 @@ function editSupplierItems(apId, apNme) {
             selectItemId.val(item.itemId);
           },
           error: function () {
-            alert('Error fetching stocks.');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
 
@@ -184,7 +190,8 @@ function editSupplierItems(apId, apNme) {
               tdItemDesc.text(stock.itemDesc);
             },
             error: function () {
-              alert('Error fetching itemDesc.');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -210,12 +217,12 @@ function editSupplierItems(apId, apNme) {
 
       });
       $('#spanId').text(apNme);
-      console.log(apId);
       $('#hiddenId').text(apId);
       modal.show();
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -259,7 +266,8 @@ function saveSupplierItems() {
         location.reload();
       },
       error: function () {
-        alert('Error fetching stocks.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }

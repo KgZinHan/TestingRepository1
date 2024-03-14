@@ -75,7 +75,8 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('error');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -199,8 +200,9 @@ function updateGoodReturn() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -219,8 +221,9 @@ function updateGoodReturn() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -313,7 +316,8 @@ function editGoodReturn(arapid, apId) {
             selectLocation.val(goodReturnDetail.fromLoc);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectLocation));
@@ -334,7 +338,8 @@ function editGoodReturn(arapid, apId) {
               selectItemId.val(goodReturnDetail.itemId);
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         }
@@ -351,7 +356,8 @@ function editGoodReturn(arapid, apId) {
               selectItemId.val(goodReturnDetail.itemId);
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         }
@@ -382,7 +388,8 @@ function editGoodReturn(arapid, apId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -409,7 +416,8 @@ function editGoodReturn(arapid, apId) {
             selectUOM.val(goodReturnDetail.uom);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectUOM.on('change', function () {
@@ -482,8 +490,9 @@ function editGoodReturn(arapid, apId) {
       });
       findGoodReturnH(arapid);
     },
-    error: function (error) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -509,7 +518,8 @@ function findGoodReturnH(arapid) {
       $('#inputBillAmt').val(gRH.billAmt.toLocaleString());
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -528,8 +538,9 @@ function deleteGoodReturn() {
       success: function (status) {
         refresh();
       },
-      error: function (error) {
-        alert('Error occured.');
+      error: function () {
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }
@@ -554,7 +565,8 @@ function printReview() {
         newWindow.document.write(htmlData); // write return htmlcontent in the new empty window
       },
       error: function () {
-        alert('An error occurred while generating the report. Please try again later.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }

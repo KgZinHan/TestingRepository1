@@ -1,3 +1,6 @@
+
+/*JS functions for Category Printer */
+
 function callAddCatgPrinterController() {
   $.ajax({
     url: "/StockCategoryPrinter/AddCatgPrinterPartial",
@@ -5,8 +8,9 @@ function callAddCatgPrinterController() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -26,8 +30,9 @@ function callEditCatgPrinterController(catgPrinterId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -48,10 +53,12 @@ function callDeleteCatgPrinterController(catgPrinterId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
   scrollToDiv();
 }
+

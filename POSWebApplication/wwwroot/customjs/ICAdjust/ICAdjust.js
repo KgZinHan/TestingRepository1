@@ -80,7 +80,8 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('error');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -194,8 +195,9 @@ function updateInventoryAdjust() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -214,8 +216,9 @@ function updateInventoryAdjust() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -303,7 +306,8 @@ function editInventoryAdjust(icmoveId) {
             selectFromLocation.val(icAdjustDetail.fromLoc);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectFromLocation));
@@ -321,7 +325,8 @@ function editInventoryAdjust(icmoveId) {
             selectItemId.val(icAdjustDetail.itemId);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectItemId.on('change', function () {
@@ -350,7 +355,8 @@ function editInventoryAdjust(icmoveId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -377,7 +383,8 @@ function editInventoryAdjust(icmoveId) {
             selectUOM.val(icAdjustDetail.uom);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectUOM.on('change', function () {
@@ -446,8 +453,9 @@ function editInventoryAdjust(icmoveId) {
       findInventoryAdjustH(icmoveId);
       calculateTotalAmount();
     },
-    error: function (error) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -471,7 +479,8 @@ function findInventoryAdjustH(icmoveId) {
       $('#textareaRemark').val(gRH.remark);
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -489,8 +498,9 @@ function deleteInventoryAdjust() {
       success: function () {
         refresh();
       },
-      error: function (error) {
-        alert('Error occured.');
+      error: function () {
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }
@@ -514,7 +524,8 @@ function printReview() {
         newWindow.document.write(htmlData);
       },
       error: function () {
-        alert('An error occurred while generating the report. Please try again later.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }

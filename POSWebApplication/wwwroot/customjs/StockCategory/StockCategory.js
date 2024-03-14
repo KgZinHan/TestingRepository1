@@ -5,8 +5,9 @@ function callAddStockCategoryController() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -26,8 +27,9 @@ function callEditStockCategoryController(CatgId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -47,8 +49,9 @@ function callDeleteStockCategoryController(CatgId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 

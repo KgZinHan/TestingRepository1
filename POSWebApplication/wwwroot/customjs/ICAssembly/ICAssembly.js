@@ -86,7 +86,8 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('error');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -208,8 +209,9 @@ function updateInventoryAssembly() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -228,8 +230,9 @@ function updateInventoryAssembly() {
         success: function (status) {
           refresh();
         },
-        error: function (error) {
-          alert('Error occured.');
+        error: function () {
+          alert('Session Expired!');
+          window.location.href = '/LogIn/Index';  // Redirect to login
         }
       });
     }
@@ -303,7 +306,8 @@ function editInventoryAssembly(icmoveId) {
             selectIssueLocation.val(icAssemblyDetail.fromLoc);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectIssueLocation));
@@ -319,7 +323,8 @@ function editInventoryAssembly(icmoveId) {
             selectReceiveLocation.val(icAssemblyDetail.toLoc);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectReceiveLocation));
@@ -337,7 +342,8 @@ function editInventoryAssembly(icmoveId) {
             selectItemId.val(icAssemblyDetail.itemId);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectItemId.on('change', function () {
@@ -366,7 +372,8 @@ function editInventoryAssembly(icmoveId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('error');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -393,7 +400,8 @@ function editInventoryAssembly(icmoveId) {
             selectUOM.val(icAssemblyDetail.uom);
           },
           error: function () {
-            alert('error');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
         selectUOM.on('change', function () {
@@ -467,8 +475,9 @@ function editInventoryAssembly(icmoveId) {
       findInventoryAssemblyH(icmoveId);
       calculateTotalAmount();
     },
-    error: function (error) {
-      alert('Error occured.');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -492,7 +501,8 @@ function findInventoryAssemblyH(icmoveId) {
       $('#textareaRemark').val(gRH.remark);
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -515,7 +525,8 @@ function printReview() {
         newWindow.document.write(htmlData);
       },
       error: function () {
-        alert('An error occurred while generating the report. Please try again later.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }
@@ -540,7 +551,7 @@ function calculateTotalAmount() {
   var billTotal = 0;
   const tableCells = $('#inventoryAssemblyDetailTable tr td:last-child');
   tableCells.each(function (index) {
-    billTotal = parseFloat(billTotal) + parseFloat($(this).text().replace(',',''));
+    billTotal = parseFloat(billTotal) + parseFloat($(this).text().replace(',', ''));
   })
   $('#inputBillAmt').val(billTotal.toLocaleString());
 }

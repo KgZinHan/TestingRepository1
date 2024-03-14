@@ -10,7 +10,8 @@ function showBillDs(billHId) {
   }).done(function (data) {
     $('#billEditBodyId').html(data);
   }).fail(function () {
-    alert('error');
+    alert('Session Expired!');
+    window.location.href = '/LogIn/Index';  // Redirect to login
   });
 }
 
@@ -31,7 +32,8 @@ function search() {
   }).done(function (data) {
     $('#mainTable').html(data);
   }).fail(function () {
-    alert('error');
+    alert('Session Expired!');
+    window.location.href = '/LogIn/Index';  // Redirect to login
   });
 }
 
@@ -50,7 +52,8 @@ function printBillSlip(billNo) {
       return;
     },
     error: function (error) {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }

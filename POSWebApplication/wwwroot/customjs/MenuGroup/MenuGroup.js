@@ -5,8 +5,9 @@ function callAddMenuGroupController() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -26,8 +27,9 @@ function callEditMenuGroupController(MnuGrpId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -47,8 +49,9 @@ function callDeleteMenuGroupController(MnuGrpId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 

@@ -15,9 +15,10 @@ function callStockBOMController(BomId) {
       $('#defaultContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -37,8 +38,9 @@ function callAddStockBOMController(BomId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -59,8 +61,9 @@ function callSelectItemController(BOMId, ItemId) {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -84,8 +87,9 @@ function callEditBOMController(BomId, StkBOMId) {
     success: function (data) {
       $(tr).html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -107,7 +111,8 @@ function callDeleteBOMController(BOMId, StkBOMId) {
       $('#defaultContainer').html(data);
     },
     error: function () {
-      alert('error');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -127,8 +132,9 @@ function addStockBOM() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -148,8 +154,9 @@ function editStockBOM() {
     success: function (data) {
       $('#defaultContainer').html(data);
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -207,7 +214,8 @@ function addStockBOMItems() {
       selectItemId.append(fragment);
     },
     error: function () {
-      alert('Error fetching stocks.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -222,7 +230,8 @@ function addStockBOMItems() {
         });
       },
       error: function () {
-        alert('Error fetching UOMs.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -244,7 +253,8 @@ function addStockBOMItems() {
       }
     },
     error: function () {
-      alert('Error fetching UOMs.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -380,8 +390,9 @@ function editStockBOMItems(itemId) {
 
       modal.show();
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 

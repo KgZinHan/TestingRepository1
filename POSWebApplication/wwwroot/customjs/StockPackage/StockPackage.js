@@ -11,9 +11,10 @@ function callAddStockPackageController() {
       $('#defaultContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
   scrollToDiv();
@@ -37,9 +38,10 @@ function callEditStockPackageController(pkgHId) {
       scrollToDiv();
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -61,9 +63,10 @@ function callDeleteStockPackageController(pkgHId) {
       $('#defaultContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -104,7 +107,8 @@ function addPackageItems() {
       selectItemId.append(fragment);
     },
     error: function () {
-      alert('Error fetching stocks.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -116,7 +120,8 @@ function addPackageItems() {
         inputItemDesc.val(stock.itemDesc);
       },
       error: function () {
-        alert('Error fetching Stocks.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
 
@@ -130,7 +135,8 @@ function addPackageItems() {
         });
       },
       error: function () {
-        alert('Error fetching UOMs.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   });
@@ -154,7 +160,8 @@ function addPackageItems() {
       });
     },
     error: function () {
-      alert('Error fetching UOMs.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -226,7 +233,8 @@ function editPackageItems(pkgHId, pkgNme) {
             selectItemId.val(item.itemId);
           },
           error: function () {
-            alert('Error fetching stocks.');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
 
@@ -241,7 +249,8 @@ function editPackageItems(pkgHId, pkgNme) {
               });
             },
             error: function () {
-              alert('Error fetching UOMs.');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
 
@@ -252,7 +261,8 @@ function editPackageItems(pkgHId, pkgNme) {
               inputItemDesc.val(stock.itemDesc);
             },
             error: function () {
-              alert('Error fetching itemDesc.');
+              alert('Session Expired!');
+              window.location.href = '/LogIn/Index';  // Redirect to login
             }
           });
         });
@@ -279,7 +289,8 @@ function editPackageItems(pkgHId, pkgNme) {
             selectUOM.val(item.baseUnit);
           },
           error: function () {
-            alert('Error fetching UOMs.');
+            alert('Session Expired!');
+            window.location.href = '/LogIn/Index';  // Redirect to login
           }
         });
 
@@ -309,7 +320,8 @@ function editPackageItems(pkgHId, pkgNme) {
       modal.show();
     },
     error: function () {
-      alert('Error occured.');
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -337,8 +349,6 @@ function savePackageItems() {
       tableData.push(rowData);
     }
 
-    console.log(tableData);
-
     var inputData = {
       pkgHId: pkgHId,
       packageItems: tableData
@@ -353,7 +363,8 @@ function savePackageItems() {
         location.reload();
       },
       error: function () {
-        alert('Error fetching stocks.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }

@@ -10,9 +10,10 @@ function callAddStockController() {
       $('#defaultContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
   scrollToDiv();
@@ -36,9 +37,10 @@ function callEditStockController(ItemId) {
       scrollToDiv();
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 }
@@ -60,9 +62,10 @@ function callDeleteStockController(ItemId) {
       $('#defaultContainer').html(data);
       loadingScreen.style.display = "none";
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
       loadingScreen.style.display = "none";
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
 
@@ -190,8 +193,9 @@ function editStockUOMItems(itemId) {
       });
       modal.show();
     },
-    error: function (data) {
-      alert('error');
+    error: function () {
+      alert('Session Expired!');
+      window.location.href = '/LogIn/Index';  // Redirect to login
     }
   });
   $('#spanId').text(itemId);
@@ -235,7 +239,8 @@ function saveStockUOMItems() {
         location.reload();
       },
       error: function () {
-        alert('Error fetching stocks.');
+        alert('Session Expired!');
+        window.location.href = '/LogIn/Index';  // Redirect to login
       }
     });
   }
