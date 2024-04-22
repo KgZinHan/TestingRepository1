@@ -31,6 +31,8 @@ namespace POSWebApplication.Controllers.PublicControllers
             {
                 ViewBag.AlertMessage = TempData["alert message"];
             }
+
+
             return View();
         }
 

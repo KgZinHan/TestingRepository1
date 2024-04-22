@@ -34,7 +34,7 @@
             <div class="form-group row">
                 <label asp-for="Location" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                        <select asp-for="Location" asp-items="ViewBag.LocationList" class="form-control form-select">
+                        <select asp-for="Location" asp-items="ViewBag.LocationList" class="form-control form-select select2bs4">
                             <option value="All">Select One</option>
                         </select>
                 </div>
@@ -42,7 +42,7 @@
             <div class="form-group row">
                 <label asp-for="POSId" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                    <select asp-for="POSId" asp-items="ViewBag.POSIdList" class="form-control form-select">
+                        <select asp-for="POSId" asp-items="ViewBag.POSIdList" class="form-control form-select select2bs4">
                         <option value="All">Select One</option>
                     </select>
                 </div>
@@ -50,14 +50,14 @@
             <div class="form-group row">
                 <label asp-for="ShiftNo" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                    <input asp-for="ShiftNo" class="form-control" id="inputDatabase">
+                    <input asp-for="ShiftNo" class="form-control" id="inputDatabase" min="1" step="1">
                     <span asp-validation-for="ShiftNo" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="CategoryCode" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10">
-                    <select asp-for="CategoryCode" asp-items="ViewBag.CategoryList" class="form-control form-select" multiple="multiple" size="3">
+                    <select asp-for="CategoryCode" asp-items="ViewBag.CategoryList" class="form-control form-select select2bs4" multiple="multiple" size="3">
                     </select>
                 </div>
             </div>
