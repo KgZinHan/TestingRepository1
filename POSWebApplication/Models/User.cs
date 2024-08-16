@@ -16,5 +16,6 @@ namespace POSWebApplication.Models
         [DisplayName("Company Id")] public short CmpyId { get; set; }
         [NotMapped][DisplayName("Confirm Password")] public string ConfirmPwd { get; set; } = string.Empty;
         [NotMapped][DisplayName("POS Id")] public string POSid { get; set; } = string.Empty;
+        [NotMapped] public string? Company { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Hotel_Core_MVC_V1.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using POSWebApplication.Data;
 using POSWebApplication.Models;
@@ -16,6 +17,8 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
         {
             _dbContext = dbContext;
         }
+
+        #region // Main methods //
 
         public async Task<IActionResult> Index()
         {
@@ -33,6 +36,11 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
             try
             {
                 var usersList = await _dbContext.pos_user.ToListAsync();
+                foreach (var user in usersList)
+                {
+                    user.Company = _dbContext.ms_hotelinfo.Where(h => h.Cmpyid == user.CmpyId).Select(h => h.Hotelnme).FirstOrDefault();
+                }
+
                 return View(usersList);
             }
             catch (Exception ex)
@@ -57,7 +65,7 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
                     UserMenuGroupList = menuGroupList,
                     POSList = posList
                 };
-
+                ViewBag.Companies = new SelectList(_dbContext.ms_hotelinfo.ToList(), "Cmpyid", "Hotelnme");
                 return View(userModelList);
             }
 
@@ -116,7 +124,7 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
                 UserMenuGroupList = await _dbContext.ms_usermenugrp.ToListAsync(),
                 POSList = posList
             };
-
+            ViewBag.Companies = new SelectList(_dbContext.ms_hotelinfo.ToList(), "Cmpyid", "Hotelnme");
             return View(userModelList);
         }
 
@@ -142,7 +150,7 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
                     UserMenuGroupList = await _dbContext.ms_usermenugrp.ToListAsync(),
                     POSList = posList
                 };
-
+                ViewBag.Companies = new SelectList(_dbContext.ms_hotelinfo.ToList(), "Cmpyid", "Hotelnme");
                 return View(userModelList);
             }
 
@@ -158,41 +166,50 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
             if (ModelState.IsValid)
             {
                 var dbUser = await _dbContext.pos_user.FindAsync(user.UserId);
-                if (user.Pwd == user.ConfirmPwd)
+                if (dbUser != null)
                 {
+                    dbUser.UserCde = user.UserCde;
+                    dbUser.UserNme = user.UserNme;
+                    dbUser.MnuGrpId = user.MnuGrpId;
+                    dbUser.CreateDtetime = user.CreateDtetime;
+                    dbUser.CmpyId = await _dbContext.ms_autonumber
+                        .Where(pos => pos.PosId == user.POSid)
+                        .Select(pos => pos.CmpyId)
+                        .FirstOrDefaultAsync();
 
-                    if (dbUser != null)
+                    _dbContext.pos_user.Update(dbUser);
+
+                    var userPos = await _dbContext.ms_userpos.FirstOrDefaultAsync(u => u.UserId == user.UserId);
+
+                    if (userPos != null)
                     {
-                        dbUser.UserCde = user.UserCde;
-                        dbUser.UserNme = user.UserNme;
-                        dbUser.Pwd = user.Pwd;
-                        dbUser.MnuGrpId = user.MnuGrpId;
-                        dbUser.CreateDtetime = user.CreateDtetime;
-                        dbUser.CmpyId = user.CmpyId;
-
-                        short? cmpyId = await _dbContext.ms_autonumber.Where(pos => pos.PosId == user.POSid)
-                            .Select(pos => pos.CmpyId)
-                            .FirstOrDefaultAsync();
-
-                        if (cmpyId != null)
-                        {
-                            dbUser.CmpyId = cmpyId.Value;
-                        }
-
-                        _dbContext.pos_user.Update(dbUser);
-
-                        var userPos = await _dbContext.ms_userpos.FirstOrDefaultAsync(u => u.UserId == user.UserId);
-
-                        if (userPos != null)
+                        if (user.POSid != null)
                         {
                             userPos.POSid = user.POSid;
                             _dbContext.ms_userpos.Update(userPos);
                         }
-
-                        await _dbContext.SaveChangesAsync();
-                        TempData["info message"] = "User is successfully updated!";
-                        return RedirectToAction(nameof(Index));
+                        else
+                        {
+                            _dbContext.ms_userpos.Remove(userPos);
+                        }
                     }
+                    else
+                    {
+                        if (user.POSid != null)
+                        {
+                            var newUserPOS = new UserPOS
+                            {
+                                UserId = user.UserId,
+                                POSid = user.POSid
+                            };
+
+                            await _dbContext.ms_userpos.AddAsync(newUserPOS);
+                        }
+                    }
+
+                    await _dbContext.SaveChangesAsync();
+                    TempData["info message"] = "User is successfully updated!";
+                    return RedirectToAction(nameof(Index));
                 }
 
                 ViewBag.AlertMessage = "Password and confirm password are not the same";
@@ -226,6 +243,7 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
                 {
                     var posId = _dbContext.ms_userpos.FirstOrDefault(u => u.UserId == user.UserId)?.POSid;
                     user.POSid = posId ?? user.POSid;
+                    user.Company = _dbContext.ms_hotelinfo.Where(h => h.Cmpyid == user.CmpyId).Select(h => h.Hotelnme).FirstOrDefault();
                 }
 
                 var userModelList = new UserModelList
@@ -258,6 +276,67 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
             TempData["info message"] = "User is successfully deleted!";
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult ChangePassword(int id)
+        {
+            SetLayOutData();
+
+            var user = _dbContext.pos_user.FirstOrDefault(u => u.UserId == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var customUser = new CustomUser()
+            {
+                UserId = user.UserId,
+                UserCde = user.UserCde,
+                UserNme = user.UserNme,
+                MnuGrp = _dbContext.ms_usermenugrp.Where(gp => gp.MnuGrpId == user.MnuGrpId).Select(gp => gp.MnuGrpNme).FirstOrDefault() ?? ""
+            };
+
+            return View(customUser);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(CustomUser customUser)
+        {
+            SetLayOutData();
+
+            var user = _dbContext.pos_user.FirstOrDefault(u => u.UserId == customUser.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (customUser.Pwd == user.Pwd)
+                {
+                    if (customUser.NewPwd == customUser.ConfirmPwd)
+                    {
+                        user.Pwd = customUser.NewPwd;
+                        _dbContext.pos_user.Update(user);
+                        _dbContext.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        @ViewBag.AlertMessage = "The new password and confirmation password do not match.";
+                    }
+                }
+                else
+                {
+                    @ViewBag.AlertMessage = "The password does not match.";
+                }
+
+            }
+            return View(customUser);
+        }
+
+        #endregion
 
 
         #region // Global methods (Important!) //

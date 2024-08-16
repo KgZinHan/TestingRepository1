@@ -469,7 +469,7 @@ namespace POSWebApplication.Controllers.AdminControllers.InventoryControllers
         public async Task<Stock> GetStocksByItemId(string itemId)
         {
             var stock = await _dbContext.ms_stock.FirstOrDefaultAsync(stock => stock.ItemId == itemId);
-            return stock;
+            return stock ?? new Stock();
         }
 
         public async Task<List<StockUOM>> GetStockUOMs(string itemId)
@@ -481,7 +481,7 @@ namespace POSWebApplication.Controllers.AdminControllers.InventoryControllers
         public async Task<StockUOM> GetStockUOMsByUOMCde(string itemId, string uomCde)
         {
             var stockUOM = await _dbContext.ms_stockuom.FirstOrDefaultAsync(uom => uom.ItemId == itemId && uom.UOMCde == uomCde);
-            return stockUOM;
+            return stockUOM ?? new StockUOM();
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<User>
 
 @{
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "Users List";
 }
 <style>
     th, td {
@@ -25,7 +25,7 @@
     {
         <div id="defaultContainer"></div>
         <a asp-controller="User" asp-action="Create">
-            <button class="btn btn-primary m-1">
+            <button class="btn m-1" style="background-color: #31849B;color: white">
                 New
             </button>
         </a>
@@ -45,32 +45,36 @@
             <table id="reportedDataTable" class="table table-bordered table-hover">
                 <thead class="text-md-center">
                     <tr style="font-size: 14px">
-                        <th style="width: 10px;text-align: left">
-                            @Html.DisplayNameFor(model => model.UserId)
+                        <th style="min-width: 10px;text-align: left">
+                            No.
                         </th>
-                        <th style="width: 100px;text-align: left">
+                        <th style="min-width: 100px;text-align: left">
                             @Html.DisplayNameFor(model => model.UserCde)
                         </th>
                         <th style="text-align: left">
                             @Html.DisplayNameFor(model => model.UserNme)
                         </th>
-                        <th style="width: 100px;text-align: left">
-                            @Html.DisplayNameFor(model => model.MnuGrpId)
+                        <th style="text-align: left">
+                            @Html.DisplayNameFor(model => model.Company)
+                        </th>
+                        
+                        <th style="width: 40px">
                         </th>
                         <th style="width: 40px">
-                            Edit
                         </th>
                         <th style="width: 40px">
-                            Delete
                         </th>
                     </tr>
                 </thead>
                 <tbody class="text-md-center">
+                    @{
+                        var Counter = 1;
+                    }
                     @foreach (var item in Model)
                     {
                         <tr style="font-size: 14px">
                             <td>
-                                @Html.DisplayFor(modelItem => item.UserId)
+                                @Counter
                             </td>
                             <td style="text-align: left">
                                 @Html.DisplayFor(modelItem => item.UserCde)
@@ -79,24 +83,20 @@
                                 @Html.DisplayFor(modelItem => item.UserNme)
                             </td>
                             <td style="text-align: left">
-                                @Html.DisplayFor(modelItem => item.MnuGrpId)
+                                @Html.DisplayFor(modelItem => item.Company)
                             </td>
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
+                                <td>
+                                    <a asp-controller="User" asp-action="ChangePassword" asp-route-id="@item.UserId">
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                </td>
                                 <td>
                                     <a asp-controller="User" asp-action="Edit" asp-route-id="@item.UserId">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
-                            }
-                            else
-                            {
-                                <td>
-                                   <i class="fas fa-edit"></i>
-                                </td>
-                            }
-                            @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
-                            {
                                 <td>
                                     <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">
                                         <i class="fas fa-trash"></i>
@@ -106,10 +106,18 @@
                             else
                             {
                                 <td>
+                                    <i class="fas fa-lock"></i>
+                                </td>
+                                <td>
+                                   <i class="fas fa-edit"></i>
+                                </td>
+                                <td>
                                     <i class="fas fa-trash"></i>
                                 </td>
+                                
                             }
                         </tr>
+                        Counter++;
                     }
                 </tbody>
             </table>
@@ -131,7 +139,7 @@
         $('#reportedDataTable').DataTable({
             "paging": true,
             "lengthChange": false,
-            "searching": false,
+            "searching": true,
             "ordering": true,
             "info": false,
             "autoWidth": false,

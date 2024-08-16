@@ -43,6 +43,7 @@ function addNewDetailsRow() {
     data: { apId: $('#selectApId').val() },
     success: function (stocks) {
       var fragment = document.createDocumentFragment();
+      $("<option>").val('').text('Select One').appendTo(fragment);
       stocks.forEach(stock => {
         $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
       });
@@ -75,8 +76,7 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('error');
       }
     });
   });
@@ -200,9 +200,8 @@ function updateGoodReturn() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -221,9 +220,8 @@ function updateGoodReturn() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -316,8 +314,7 @@ function editGoodReturn(arapid, apId) {
             selectLocation.val(goodReturnDetail.fromLoc);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectLocation));
@@ -331,6 +328,7 @@ function editGoodReturn(arapid, apId) {
             data: { apId: apId },
             success: function (stocks) {
               var fragment = document.createDocumentFragment();
+              $("<option>").val('').text('Select One').appendTo(fragment);
               stocks.forEach(stock => {
                 $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
               });
@@ -338,8 +336,7 @@ function editGoodReturn(arapid, apId) {
               selectItemId.val(goodReturnDetail.itemId);
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         }
@@ -349,6 +346,7 @@ function editGoodReturn(arapid, apId) {
             data: { arapId: arapid },
             success: function (stocks) {
               var fragment = document.createDocumentFragment();
+              $("<option>").val('').text('Select One').appendTo(fragment);
               stocks.forEach(stock => {
                 $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
               });
@@ -356,8 +354,7 @@ function editGoodReturn(arapid, apId) {
               selectItemId.val(goodReturnDetail.itemId);
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         }
@@ -388,8 +385,7 @@ function editGoodReturn(arapid, apId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         });
@@ -416,8 +412,7 @@ function editGoodReturn(arapid, apId) {
             selectUOM.val(goodReturnDetail.uom);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectUOM.on('change', function () {
@@ -490,9 +485,8 @@ function editGoodReturn(arapid, apId) {
       });
       findGoodReturnH(arapid);
     },
-    error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+    error: function (error) {
+      alert('Error occured.');
     }
   });
 }
@@ -518,8 +512,7 @@ function findGoodReturnH(arapid) {
       $('#inputBillAmt').val(gRH.billAmt.toLocaleString());
     },
     error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+      alert('error');
     }
   });
 }
@@ -538,9 +531,8 @@ function deleteGoodReturn() {
       success: function (status) {
         refresh();
       },
-      error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+      error: function (error) {
+        alert('Error occured.');
       }
     });
   }
@@ -565,8 +557,7 @@ function printReview() {
         newWindow.document.write(htmlData); // write return htmlcontent in the new empty window
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('An error occurred while generating the report. Please try again later.');
       }
     });
   }

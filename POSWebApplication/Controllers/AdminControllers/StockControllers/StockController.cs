@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using POSWebApplication.Data;
 using POSWebApplication.Models;
+using SixLabors.ImageSharp;
 
 namespace POSWebApplication.Controllers.AdminControllers.StockControllers
 {

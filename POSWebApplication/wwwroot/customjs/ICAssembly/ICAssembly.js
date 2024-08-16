@@ -54,6 +54,7 @@ function addNewDetailsRow() {
     url: "/ICAssembly/GetStocks",
     success: function (stocks) {
       var fragment = document.createDocumentFragment();
+      $("<option>").val('').text('Select One').appendTo(fragment);
       stocks.forEach(stock => {
         $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
       });
@@ -86,8 +87,7 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('error');
       }
     });
   });
@@ -209,9 +209,8 @@ function updateInventoryAssembly() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -230,9 +229,8 @@ function updateInventoryAssembly() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -306,8 +304,7 @@ function editInventoryAssembly(icmoveId) {
             selectIssueLocation.val(icAssemblyDetail.fromLoc);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectIssueLocation));
@@ -323,8 +320,7 @@ function editInventoryAssembly(icmoveId) {
             selectReceiveLocation.val(icAssemblyDetail.toLoc);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectReceiveLocation));
@@ -335,6 +331,7 @@ function editInventoryAssembly(icmoveId) {
           url: "/ICAssembly/GetStocks",
           success: function (stocks) {
             var fragment = document.createDocumentFragment();
+            $("<option>").val('').text('Select One').appendTo(fragment);
             stocks.forEach(stock => {
               $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
             });
@@ -342,8 +339,7 @@ function editInventoryAssembly(icmoveId) {
             selectItemId.val(icAssemblyDetail.itemId);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectItemId.on('change', function () {
@@ -372,8 +368,7 @@ function editInventoryAssembly(icmoveId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         });
@@ -400,8 +395,7 @@ function editInventoryAssembly(icmoveId) {
             selectUOM.val(icAssemblyDetail.uom);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectUOM.on('change', function () {
@@ -475,9 +469,8 @@ function editInventoryAssembly(icmoveId) {
       findInventoryAssemblyH(icmoveId);
       calculateTotalAmount();
     },
-    error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+    error: function (error) {
+      alert('Error occured.');
     }
   });
 }
@@ -501,8 +494,7 @@ function findInventoryAssemblyH(icmoveId) {
       $('#textareaRemark').val(gRH.remark);
     },
     error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+      alert('error');
     }
   });
 }
@@ -525,8 +517,7 @@ function printReview() {
         newWindow.document.write(htmlData);
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('An error occurred while generating the report. Please try again later.');
       }
     });
   }

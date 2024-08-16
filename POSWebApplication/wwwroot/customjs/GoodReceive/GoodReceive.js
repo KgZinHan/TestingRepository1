@@ -3,6 +3,12 @@
 
 const tBody = $('#goodReceiveDetailsBodyId');
 function addNewDetailsRow() {
+  var apId = $('#selectApId').val();
+  if (apId == "") {
+    alert('Please choose Supplier first.');
+    return;
+  }
+
   const newRow = $('<tr>').css({ 'font-size': '14px', 'text-align': 'center' });
 
   const columnStyles = {
@@ -42,6 +48,7 @@ function addNewDetailsRow() {
     data: { apId: $('#selectApId').val() },
     success: function (stocks) {
       var fragment = document.createDocumentFragment();
+      $("<option>").val('').text('Select One').appendTo(fragment);
       stocks.forEach(stock => {
         $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
       });
@@ -74,8 +81,7 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('error');
       }
     });
   });
@@ -207,9 +213,8 @@ function updateGoodReceive() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -229,9 +234,8 @@ function updateGoodReceive() {
           refresh();
 
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -324,8 +328,7 @@ function editGoodReceive(arapid, apId) {
             selectLocation.val(goodReceiveDetail.fromLoc);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectLocation));
@@ -339,6 +342,7 @@ function editGoodReceive(arapid, apId) {
             data: { apId: apId },
             success: function (stocks) {
               var fragment = document.createDocumentFragment();
+              $("<option>").val('').text('Select One').appendTo(fragment);
               stocks.forEach(stock => {
                 $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
               });
@@ -346,8 +350,7 @@ function editGoodReceive(arapid, apId) {
               selectItemId.val(goodReceiveDetail.itemId);
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         }
@@ -357,6 +360,7 @@ function editGoodReceive(arapid, apId) {
             data: { arapId: arapid },
             success: function (stocks) {
               var fragment = document.createDocumentFragment();
+              $("<option>").val('').text('Select One').appendTo(fragment);
               stocks.forEach(stock => {
                 $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
               });
@@ -364,8 +368,7 @@ function editGoodReceive(arapid, apId) {
               selectItemId.val(goodReceiveDetail.itemId);
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         }
@@ -396,8 +399,7 @@ function editGoodReceive(arapid, apId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         });
@@ -424,8 +426,7 @@ function editGoodReceive(arapid, apId) {
             selectUOM.val(goodReceiveDetail.uom);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectUOM.on('change', function () {
@@ -499,9 +500,8 @@ function editGoodReceive(arapid, apId) {
       });
 
     },
-    error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+    error: function (error) {
+      alert('Error occured.');
     }
   });
 }
@@ -537,8 +537,7 @@ function findGoodReceiveH(arapid) {
       $('#inputPrintRefNo').val(gRH.icRefNo);
     },
     error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+      alert('error');
     }
   });
 }
@@ -558,12 +557,11 @@ function deleteGoodReceive() {
         type: 'POST',
         url: '/GoodReceive/DeleteGoodReceiveDetails',
         data: { arapId: arapId },
-        success: function () {
+        success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -588,8 +586,7 @@ function printReview() {
         newWindow.document.write(htmlData); // write return htmlcontent in the new empty window
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('An error occurred while generating the report. Please try again later.');
       }
     });
   }

@@ -64,5 +64,16 @@ namespace POSWebApplication.Data
         public DbSet<RoomFolio> pms_roomfolioh { get; set; }
         public DbSet<SysConfig> sysconfig { get; set; }
 
+        /*Store Procedure*/
+        public DbSet<SaleDashboardListModel> spSaleDashboard00DbSet { get; set; }
+        public DbSet<SaleDashboardCurrListModel> spSaleDashboard0102DbSet { get; set; }
+        public DbSet<DateWiseSaleListModel> spSaleDashboard03DbSet { get; set; }
+        public DbSet<ItemWiseSaleListModel> spSaleDashboard04DbSet { get; set; }
+        public DbSet<MonthlySalesModel> spMonthlySales01DbSet { get; set; }
+        public DbSet<CategorySalesModel> spMonthlySales02DbSet { get; set; }
+        public DbSet<YearlySalesModel> spYearlySales01DbSet { get; set; }
+        public DbSet<CategorySalesModel> spYearlySales02DbSet { get; set; }
+        public DbSet<SalesAnalysisModel> spSalesAnalysisDbSet { get; set; }
+
     }
 }

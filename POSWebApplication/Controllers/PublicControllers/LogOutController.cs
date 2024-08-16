@@ -11,7 +11,6 @@ namespace POSWebApplication.Controllers.PublicControllers
         public async Task<IActionResult> Index()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear();
             return RedirectToAction("Index", "LogIn");
         }
     }

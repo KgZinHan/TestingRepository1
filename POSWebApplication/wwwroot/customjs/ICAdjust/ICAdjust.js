@@ -48,6 +48,7 @@ function addNewDetailsRow() {
     url: "/ICAdjust/GetStocks",
     success: function (stocks) {
       var fragment = document.createDocumentFragment();
+      $("<option>").val('').text('Select One').appendTo(fragment);
       stocks.forEach(stock => {
         $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
       });
@@ -80,8 +81,7 @@ function addNewDetailsRow() {
         calculateTotalAmount();
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('error');
       }
     });
   });
@@ -195,9 +195,8 @@ function updateInventoryAdjust() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -216,9 +215,8 @@ function updateInventoryAdjust() {
         success: function (status) {
           refresh();
         },
-        error: function () {
-          alert('Session Expired!');
-          window.location.href = '/LogIn/Index';  // Redirect to login
+        error: function (error) {
+          alert('Error occured.');
         }
       });
     }
@@ -306,8 +304,7 @@ function editInventoryAdjust(icmoveId) {
             selectFromLocation.val(icAdjustDetail.fromLoc);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         newRow.append($('<td>').css('padding', '0px').append(selectFromLocation));
@@ -318,6 +315,7 @@ function editInventoryAdjust(icmoveId) {
           url: "/ICAdjust/GetStocks",
           success: function (stocks) {
             var fragment = document.createDocumentFragment();
+            $("<option>").val('').text('Select One').appendTo(fragment);
             stocks.forEach(stock => {
               $("<option>").val(stock.itemId).text(stock.itemId).appendTo(fragment);
             });
@@ -325,8 +323,7 @@ function editInventoryAdjust(icmoveId) {
             selectItemId.val(icAdjustDetail.itemId);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectItemId.on('change', function () {
@@ -355,8 +352,7 @@ function editInventoryAdjust(icmoveId) {
               calculateTotalAmount();
             },
             error: function () {
-              alert('Session Expired!');
-              window.location.href = '/LogIn/Index';  // Redirect to login
+              alert('error');
             }
           });
         });
@@ -383,8 +379,7 @@ function editInventoryAdjust(icmoveId) {
             selectUOM.val(icAdjustDetail.uom);
           },
           error: function () {
-            alert('Session Expired!');
-            window.location.href = '/LogIn/Index';  // Redirect to login
+            alert('error');
           }
         });
         selectUOM.on('change', function () {
@@ -453,9 +448,8 @@ function editInventoryAdjust(icmoveId) {
       findInventoryAdjustH(icmoveId);
       calculateTotalAmount();
     },
-    error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+    error: function (error) {
+      alert('Error occured.');
     }
   });
 }
@@ -479,8 +473,7 @@ function findInventoryAdjustH(icmoveId) {
       $('#textareaRemark').val(gRH.remark);
     },
     error: function () {
-      alert('Session Expired!');
-      window.location.href = '/LogIn/Index';  // Redirect to login
+      alert('error');
     }
   });
 }
@@ -498,9 +491,8 @@ function deleteInventoryAdjust() {
       success: function () {
         refresh();
       },
-      error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+      error: function (error) {
+        alert('Error occured.');
       }
     });
   }
@@ -524,8 +516,7 @@ function printReview() {
         newWindow.document.write(htmlData);
       },
       error: function () {
-        alert('Session Expired!');
-        window.location.href = '/LogIn/Index';  // Redirect to login
+        alert('An error occurred while generating the report. Please try again later.');
       }
     });
   }

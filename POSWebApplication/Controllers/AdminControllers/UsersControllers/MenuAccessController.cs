@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using POSWebApplication.Data;
 using POSWebApplication.Models;
 
@@ -17,6 +18,7 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
             _dbContext = dbContext;
         }
 
+        #region // Main methods //
         public async Task<IActionResult> Index()
         {
             SetLayOutData();
@@ -127,8 +129,12 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
 
             if (ModelState.IsValid)
             {
+                var userCde = HttpContext.User.Claims.FirstOrDefault()?.Value;
+                var userId = await _dbContext.pos_user.Where(u => u.UserCde == userCde).Select(u => u.UserId).FirstOrDefaultAsync();
                 try
                 {
+                    menuAccess.RevDtetime = DateTime.Now;
+                    menuAccess.ByUserID = userId;
                     _dbContext.Update(menuAccess);
                     await _dbContext.SaveChangesAsync();
                     TempData["info message"] = "Menu Access is successfully updated!";
@@ -208,6 +214,9 @@ namespace POSWebApplication.Controllers.AdminControllers.UsersControllers
         {
             return (_dbContext.ms_usermenuaccess?.Any(e => e.AccessId == id)).GetValueOrDefault();
         }
+
+        #endregion
+
 
         #region // Global methods (Important!) //
         protected void SetLayOutData()
