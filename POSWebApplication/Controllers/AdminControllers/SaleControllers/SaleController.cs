@@ -305,22 +305,24 @@ namespace POSWebApplication.Controllers
 
         public async Task<IEnumerable<RoomModel>> GetInHouseRoomList()
         {
-            var hotelInfo = _dbContext.ms_hotelinfo.FirstOrDefault(h => h.Cmpyid == 1);
+            var hotelInfo = await _dbContext.ms_hotelinfo.FirstOrDefaultAsync(h => h.Cmpyid == 1);
 
-            var roomList = await _dbContext.pms_roomledger
-                .Where(ledg => ledg.Occudte == hotelInfo.Hoteldte && ledg.Occustate == "occupied" && ledg.Cmpyid == 1)
-                .Join(_dbContext.pms_checkin,
-                ledg => ledg.Checkinid,
-                chkin => chkin.Checkinid,
-                (ledg, chkin) => new RoomModel
-                {
-                    RoomNo = ledg.Roomno ?? "",
-                    CheckInId = ledg.Checkinid,
-                    CheckOutFlg = chkin.Checkoutflg
-                })
-                .Where(gp => gp.CheckOutFlg == false)
-                .OrderBy(gp => gp.RoomNo)
-                .ToListAsync();
+            var roomList = await _dbContext.pms_checkin
+               .Join(
+                   _dbContext.pms_roomledger,
+                   chkin => chkin.Checkinid,
+                   ledg => ledg.Checkinid,
+                   (chkin, ledg) => new { Checkin = chkin, Ledger = ledg }
+               )
+               .Where(joinResult => joinResult.Checkin.Checkoutflg != true)
+               .GroupBy(joinResult => new { joinResult.Ledger.Roomno })
+               .Select(group => new RoomModel
+               {
+                   CheckInId = group.Max(joinResult => joinResult.Checkin.Checkinid) ?? "",
+                   RoomNo = group.Key.Roomno ?? ""
+               })
+               .OrderBy(result => result.RoomNo)
+               .ToListAsync();
 
             foreach (var room in roomList)
             {
