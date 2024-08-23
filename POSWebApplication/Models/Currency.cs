@@ -9,7 +9,8 @@ namespace POSWebApplication.Models
         [StringLength(20)][Required][DisplayName("Currency Type")] public string CurrTyp { get; set; }
         [StringLength(8)][Required][DisplayName("Currency Code")] public string CurrCde { get; set; }
         [Required][DisplayName("Currency Rate")] public decimal CurrRate { get; set; }
-
         [DisplayName("Home Flag")] public bool? HomeFlg { get; set; }
+        public DateTime RevDteTime { get; set; }
+        public short UserId { get; set; }
     }
 }

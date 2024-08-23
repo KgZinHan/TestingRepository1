@@ -50,6 +50,10 @@ namespace POSWebApplication.Controllers.AdminControllers.StockControllers
         {
             if (ModelState.IsValid)
             {
+                var userCde = HttpContext.User.Claims.FirstOrDefault()?.Value;
+                var userId = _dbContext.pos_user.Where(u => u.UserCde == userCde).Select(u => u.UserId).FirstOrDefault();
+                currency.UserId = userId;
+                currency.RevDteTime = DateTime.Now;
                 _dbContext.Add(currency);
                 await _dbContext.SaveChangesAsync();
                 TempData["info message"] = "Currency is successfully created.";
@@ -67,6 +71,10 @@ namespace POSWebApplication.Controllers.AdminControllers.StockControllers
         {
             if (ModelState.IsValid)
             {
+                var userCde = HttpContext.User.Claims.FirstOrDefault()?.Value;
+                var userId = _dbContext.pos_user.Where(u => u.UserCde == userCde).Select(u => u.UserId).FirstOrDefault();
+                currency.UserId = userId;
+                currency.RevDteTime = DateTime.Now;
                 _dbContext.ms_currency.Update(currency);
                 await _dbContext.SaveChangesAsync();
                 TempData["info message"] = "Currency is successfully updated!";
