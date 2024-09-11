@@ -18,51 +18,6 @@
     }
 </style>
 
-@* <!--Stock BOM Items Modal -->
-<div class="modal" id="stockBOMItemsModal" tabindex="-1" role="dialog" aria-labelledby="billReprintModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Stock BOM For <span id="spanId"></span></h5>
-                <button type="button" class="close" onclick="closeStockBOMItemsModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body table-responsive" style="max-height: 550px">
-                <button class="btn btn-info m-1" onclick="addStockBOMItems()">
-                    New
-                </button>
-                <div id="tableLoadingScreen" class="loading-text">Loading...</div>
-                <table id="stockBOMItemsTable" class="table table-bordered table-hover">
-                    <thead class="text-md-center">
-                        <tr style="font-size: 12px">
-                            <th style="text-align: left">
-                                Order
-                            </th>
-                            <th style="width: 200px;text-align: left">
-                                ItemID
-                            </th>
-                            <th style="width: 120px;text-align: left">
-                                BaseUnit
-                            </th>
-                            <th style="width: 70px;text-align: left">
-                                Qty
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="stockBOMItemsListId" class="text-md-left" style="font-size: 14px">
-                        Stock BOM Items list will be come from StockBOM.js
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button id="modelCloseBtnId" class="btn" onclick="saveStockBOMItemes()" style="background-color: #31849B;color: white">Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div> *@
-
-
 <div class="container-fluid">
     <div id="defaultContainer"></div>
     <div id="loadingTextId" class="loading-text">Loading...</div>
@@ -74,6 +29,7 @@
             <table id="reportedDataTable" class="table table-bordered table-hover">
                 <thead class="text-md-center">
                     <tr style="font-size: 14px">
+                        <th style="width: 40px">No.</th>
                         <th style="text-align: left">
                             @Html.DisplayNameFor(model => model.Stock.ItemId)
                         </th>
@@ -90,9 +46,14 @@
                     </tr>
                 </thead>
                 <tbody class="text-md-center">
+                    @{
+                        var counter = 0;
+                    }
                     @foreach (var item in Model.Stocks)
                     {
+                        counter++;
                         <tr style="font-size: 14px">
+                            <td>@counter</td>
                             <td style="text-align: left">
                                 @Html.DisplayFor(modelItem => item.ItemId)
                             </td>
@@ -107,15 +68,15 @@
                             </td>
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
-                                <td>
+                                <td class="text-center">
                                     <a style="cursor: pointer" onclick="callStockBOMController('@item.ItemId')">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit text-info"></i>
                                     </a>
                                 </td>
                             }
                             else
                             {
-                                <td>
+                                <td class="text-center">
                                     <i class="fas fa-edit"></i>
                                 </td>
                             }

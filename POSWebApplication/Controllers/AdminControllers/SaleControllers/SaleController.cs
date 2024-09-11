@@ -11,6 +11,7 @@ using System.Drawing.Printing;
 using System.Drawing;
 using System.Text;
 using Rectangle = System.Drawing.Rectangle;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace POSWebApplication.Controllers
 {
@@ -19,13 +20,15 @@ namespace POSWebApplication.Controllers
     {
         private readonly POSWebAppDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMemoryCache _cache;
         private static List<Stream> m_streams;
         private static int m_currentPageIndex = 0;
 
-        public SaleController(POSWebAppDbContext dbContext, IWebHostEnvironment webHostEnvironment)
+        public SaleController(POSWebAppDbContext dbContext, IWebHostEnvironment webHostEnvironment, IMemoryCache cache)
         {
             _dbContext = dbContext;
             _webHostEnvironment = webHostEnvironment;
+            _cache = cache;
         }
 
 
@@ -35,9 +38,11 @@ namespace POSWebApplication.Controllers
         {
             SetLayOutData();
 
-            var stockCategories = await _dbContext.ms_stockcategory.ToListAsync();
-
-            var billNo = GenerateAutoBillNo();
+            var stocks = RestartStocks() ?? new List<Stock>();
+            foreach (var stock in stocks)
+            {
+                stock.Base64Image = stock.Image != null ? Convert.ToBase64String(stock.Image) : "";
+            }
 
             var userCde = HttpContext.User.Claims.FirstOrDefault()?.Value;
             var UPOS = _dbContext.pos_user
@@ -50,48 +55,16 @@ namespace POSWebApplication.Controllers
                         POSId = userPOS.POSid
                     })
                 .FirstOrDefault(u => u.UserCde == userCde);
-
-            var stocks = await _dbContext.ms_stock.ToListAsync();
-
-            var pkgs = await _dbContext.ms_stockpkgh.ToListAsync();
-
-            if (pkgs != null)
-            {
-                foreach (var pkg in pkgs)
-                {
-                    var stockPkg = new Stock()
-                    {
-                        ItemId = pkg.PkgNme,
-                        ItemDesc = pkg.PkgNme,
-                        SellingPrice = pkg.SellingPrice,
-                        PkgHId = pkg.PkgHId,
-                        Image = pkg.Image
-                    };
-                    stocks.Add(stockPkg);
-                }
-            }
-
-            foreach (var stock in stocks)
-            {
-                stock.Base64Image = stock.Image != null ? Convert.ToBase64String(stock.Image) : "";
-            }
-
-            var autoNumber = _dbContext.ms_autonumber.FirstOrDefault(pos => pos.PosId == UPOS.POSId);
-
-            if (autoNumber != null)
-            {
-                autoNumber.BizDteString = ChangeDateFormat(GetBizDate());
-            }
-
-            var currencyList = await _dbContext.ms_currency.ToListAsync();
+            var autoNumber = _dbContext.ms_autonumber.FirstOrDefault(pos => pos.PosId == UPOS.POSId) ?? new AutoNumber();
+            autoNumber.BizDteString = ChangeDateFormat(GetBizDate());
 
             var saleList = new SaleModelList()
             {
                 Stocks = stocks,
-                StockCategories = stockCategories,
-                BillNo = billNo,
+                StockCategories = await _dbContext.ms_stockcategory.ToListAsync(),
+                BillNo = GenerateAutoBillNo(),
                 AutoNumber = autoNumber,
-                CurrencyList = currencyList
+                CurrencyList = await _dbContext.ms_currency.ToListAsync()
             };
 
             return View(saleList);
@@ -166,7 +139,8 @@ namespace POSWebApplication.Controllers
 
         public string GetItemIdByBarcode(string barcode) // Add with barcode
         {
-            var itemId = _dbContext.ms_stock
+            var memoryStocks = GetAllStocks();
+            var itemId = memoryStocks
                 .Where(stk => stk.Barcode == barcode)
                 .Select(stk => stk.ItemId)
                 .FirstOrDefault();
@@ -184,32 +158,10 @@ namespace POSWebApplication.Controllers
             return pkgItem;
         }
 
-        public async Task<IActionResult> SearchItems(string keyword)
+        public IActionResult SearchItems(string keyword)
         {
-            var stocks = await _dbContext.ms_stock.Where(stock => stock.ItemDesc.Contains(keyword)).ToListAsync();
-
-            var pkgs = await _dbContext.ms_stockpkgh.Where(pkg => pkg.PkgNme.Contains(keyword)).ToListAsync();
-
-            if (pkgs != null)
-            {
-                foreach (var pkg in pkgs)
-                {
-                    var stockPkg = new Stock()
-                    {
-                        ItemId = pkg.PkgNme,
-                        ItemDesc = pkg.PkgNme,
-                        SellingPrice = pkg.SellingPrice,
-                        PkgHId = pkg.PkgHId,
-                        Image = pkg.Image
-                    };
-                    stocks.Add(stockPkg);
-                }
-            }
-
-            if (keyword == "" || keyword == string.Empty || keyword == null)
-            {
-                await AllStockItems();
-            }
+            var memoryStocks = GetAllStocks();
+            var stocks = memoryStocks.Where(stock => stock.ItemDesc.ToLower().Contains(keyword == null ? "" : keyword.ToLower())).ToList();
 
             foreach (var stock in stocks)
             {
@@ -218,32 +170,9 @@ namespace POSWebApplication.Controllers
             return PartialView("_StockItems", stocks);
         }
 
-        public async Task<IActionResult> AllStockItems()
+        public IActionResult AllStockItems()
         {
-            var stocks = await _dbContext.ms_stock.ToListAsync();
-
-            var pkgs = await _dbContext.ms_stockpkgh.ToListAsync();
-
-            if (pkgs != null)
-            {
-                foreach (var pkg in pkgs)
-                {
-                    var stockPkg = new Stock()
-                    {
-                        ItemId = pkg.PkgNme,
-                        ItemDesc = pkg.PkgNme,
-                        SellingPrice = pkg.SellingPrice,
-                        PkgHId = pkg.PkgHId,
-                        Image = pkg.Image
-                    };
-                    stocks.Add(stockPkg);
-                }
-            }
-
-            foreach (var stock in stocks)
-            {
-                stock.Base64Image = stock.Image != null ? Convert.ToBase64String(stock.Image) : "";
-            }
+            var stocks = GetAllStocks();
             return PartialView("_StockItems", stocks);
         }
 
@@ -269,9 +198,10 @@ namespace POSWebApplication.Controllers
             return PartialView("_StockItems", stocks);
         }
 
-        public async Task<IActionResult> StockItems(string catgId)
+        public IActionResult StockItems(string catgId)
         {
-            var stocks = await _dbContext.ms_stock.Where(stock => stock.CatgCde == catgId).ToListAsync();
+            var memoryStocks = GetAllStocks();
+            var stocks = memoryStocks.Where(stock => stock.CatgCde == catgId).ToList();
             foreach (var stock in stocks)
             {
                 stock.Base64Image = stock.Image != null ? Convert.ToBase64String(stock.Image) : "";
@@ -288,7 +218,8 @@ namespace POSWebApplication.Controllers
 
         public Stock AddStock(string itemId)
         {
-            var stock = _dbContext.ms_stock.FirstOrDefault(u => u.ItemId == itemId);
+            var memoryStocks = GetAllStocks();
+            var stock = memoryStocks.FirstOrDefault(u => u.ItemId == itemId);
             if (stock != null)
             {
                 stock.Quantity = 1;
@@ -297,6 +228,60 @@ namespace POSWebApplication.Controllers
             return new Stock();
         } // Main add method
 
+
+        #endregion
+
+
+        #region // Stock cache method //
+
+        public List<Stock> GetAllStocks()
+        {
+            if (_cache.TryGetValue("StockList", out List<Stock>? stockList))
+            {
+                return stockList ?? new List<Stock>();
+            }
+            else
+            {
+                var stocks = _dbContext.ms_stock.ToList();
+                var pkgs = _dbContext.ms_stockpkgh.ToList();
+
+                if (pkgs != null)
+                {
+                    foreach (var pkg in pkgs)
+                    {
+                        var stockPkg = new Stock()
+                        {
+                            ItemId = pkg.PkgNme,
+                            ItemDesc = pkg.PkgNme,
+                            SellingPrice = pkg.SellingPrice,
+                            PkgHId = pkg.PkgHId,
+                            Image = pkg.Image
+                        };
+                        stocks.Add(stockPkg);
+                    }
+                }
+
+                foreach (var stock in stocks)
+                {
+                    stock.Base64Image = stock.Image != null ? Convert.ToBase64String(stock.Image) : "";
+                }
+                _cache.Set("StockList", stocks, TimeSpan.FromMinutes(30));
+
+                return stocks;
+            }
+        }
+
+        public List<Stock>? RestartStocks()
+        {
+            if (_cache.TryGetValue("StockList", out List<Stock>? stockList))
+            {
+                _cache.Remove("StockList");
+            }
+
+            var stocks = GetAllStocks();
+
+            return stocks;
+        }
 
         #endregion
 

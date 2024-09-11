@@ -320,7 +320,7 @@ namespace POSWebApplication.Controllers.AdminControllers.StockControllers
         public Stock GetStockById(string itemId)
         {
             var stock = _dbContext.ms_stock.FirstOrDefault(stk => stk.ItemId == itemId);
-            return stock;
+            return stock ?? new Stock();
         }
 
         public async Task<List<StockUOM>> GetStockUOMs(string itemId)

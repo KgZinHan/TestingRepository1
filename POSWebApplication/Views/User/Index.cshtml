@@ -45,7 +45,7 @@
             <table id="reportedDataTable" class="table table-bordered table-hover">
                 <thead class="text-md-center">
                     <tr style="font-size: 14px">
-                        <th style="min-width: 10px;text-align: left">
+                        <th style="width: 40px">
                             No.
                         </th>
                         <th style="min-width: 100px;text-align: left">
@@ -58,11 +58,11 @@
                             @Html.DisplayNameFor(model => model.Company)
                         </th>
                         
-                        <th style="width: 40px">
+                        <th style="min-width: 40px">
                         </th>
-                        <th style="width: 40px">
+                        <th style="min-width: 40px">
                         </th>
-                        <th style="width: 40px">
+                        <th style="min-width: 40px">
                         </th>
                     </tr>
                 </thead>
@@ -99,7 +99,7 @@
                                 </td>
                                 <td>
                                     <a asp-controller="User" asp-action="Delete" asp-route-id="@item.UserId">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash text-danger"></i>
                                     </a>
                                 </td>
                             }

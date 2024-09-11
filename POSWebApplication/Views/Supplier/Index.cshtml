@@ -95,6 +95,9 @@
             <table id="reportedDataTable" class="table table-bordered table-hover">
                 <thead class="text-md-center">
                     <tr style="font-size: 14px">
+                        <th style="width: 40px">
+                            No.
+                        </th>
                         <th style="width: 120px;text-align: left">
                             @Html.DisplayNameFor(model => model.ApAcCde)
                         </th>
@@ -122,9 +125,16 @@
                     </tr>
                 </thead>
                 <tbody class="text-md-center">
+                    @{
+                        var counter = 0;
+                    }
                     @foreach (var supplier in Model)
                     {
+                        counter++;
                         <tr style="font-size: 14px">
+                            <td>
+                                @counter
+                            </td>
                             <td style="text-align: left">
                                 @Html.DisplayFor(modelItem => supplier.ApAcCde )
                             </td>
@@ -133,7 +143,7 @@
                             </td>
                             <td>
                                 <a style="cursor:pointer" onclick="editSupplierItems('@supplier.ApId','@supplier.ApNme')" class="btn-sm">
-                                    ...
+                                    <i class="fas fa-ellipsis-h"></i>
                                 </a>
                             </td>
                             <td style="text-align: left">
@@ -147,29 +157,29 @@
                             </td>
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
-                                <td>
+                                <td class="text-center">
                                     <a style="cursor: pointer" onclick="callEditSupplierController('@supplier.ApId')">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit text-info"></i>
                                     </a>
                                 </td>
                             }
                             else
                             {
-                                <td>
+                                <td class="text-center">
                                     <i class="fas fa-edit"></i>
                                 </td>
                             }
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
-                                <td>
+                                <td class="text-center">
                                     <a style="cursor: pointer" onclick="callDeleteSupplierController('@supplier.ApId')">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash text-danger"></i>
                                     </a>
                                 </td>
                             }
                             else
                             {
-                                <td>
+                                <td class="text-center">
                                     <i class="fas fa-trash"></i>
                                 </td>
                             }

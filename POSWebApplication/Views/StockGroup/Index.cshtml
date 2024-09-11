@@ -46,28 +46,32 @@
                 <thead class="text-md-center">
                     <tr style="font-size: 14px">
                         <th style="width: 40px;text-align: left">
-                            @Html.DisplayNameFor(model => model.StockGroup.StkGrpId)
+                            No.
                         </th>
-                        <th style="width: 200px;text-align: left">
+                        <th style="min-width: 200px;text-align: left">
                             @Html.DisplayNameFor(model => model.StockGroup.GrpCde)
                         </th>
                         <th style="text-align: left">
                             @Html.DisplayNameFor(model => model.StockGroup.GrpDesc)
                         </th>
-                        <th style="width: 40px" >
+                        <th style="min-width: 40px">
                             Edit
                         </th>
-                        <th style="width: 40px">
+                        <th style="min-width: 40px">
                             Delete
                         </th>
                     </tr>
                 </thead>
                 <tbody class="text-md-center">
+                    @{
+                        var counter = 0;
+                    }
                     @foreach (var item in Model.StockGroups)
                     {
+                        counter++;
                         <tr style="font-size: 14px">
-                            <td style="text-align: left">
-                                @Html.DisplayFor(modelItem => item.StkGrpId )
+                            <td>
+                                @counter
                             </td>
                             <td style="text-align: left">
                                 @Html.DisplayFor(modelItem => item.GrpCde)
@@ -77,29 +81,29 @@
                             </td>
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
-                                <td>
+                                <td class="text-center">
                                     <a style="cursor: pointer" onclick="callEditStockGroupController('@item.StkGrpId')">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit text-info"></i>
                                     </a>
                                 </td>
                             }
                             else
                             {
-                                <td>
+                                <td class="text-center">
                                     <i class="fas fa-edit"></i>
                                 </td>
                             }
                             @if (new[] { "accessLvl2" }.Contains(ViewData["User Role"]?.ToString()))
                             {
-                                <td>
+                                <td class="text-center">
                                     <a style="cursor: pointer" onclick="callDeleteStockGroupController('@item.StkGrpId')">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash text-danger"></i>
                                     </a>
                                 </td>
                             }
                             else
                             {
-                                <td>
+                                <td class="text-center">
                                     <i class="fas fa-trash"></i>
                                 </td>
                             }

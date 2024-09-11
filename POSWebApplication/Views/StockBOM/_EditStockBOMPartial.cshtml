@@ -1,16 +1,10 @@
 ﻿@model StockBOMModelList
-<input asp-for="@Model.StockBOM.StkBOMId" type="hidden"/>
+<input asp-for="@Model.StockBOM.StkBOMId" type="hidden" />
 <input asp-for="@Model.StockBOM.BOMId" type="hidden" />
 <td>
-    <input asp-for="@Model.StockBOM.OrdId" class="form-control form-control-sm"/>
+    <input asp-for="@Model.StockBOM.OrdId" class="form-control form-control-sm" />
 </td>
 <td>
-    @*<select asp-for="@Model.StockBOM.ItemId" class="form-control form-control-sm" onchange="callSelectItemController('@Model.StockBOM.BOMId',this.value)" disabled>
-        @foreach (var unit in Model.UnionStockBOMs)
-        {
-            <option>@unit.ItemId</option>
-        }
-    </select>*@
     <input asp-for="@Model.StockBOM.ItemId" class="form-control form-control-sm" readonly />
 </td>
 @if (Model.BaseUnitFlg == true)
@@ -41,4 +35,4 @@ else
         <i class="fas fa-trash btn-trash"></i>
     </a>
 </td>
-    
+

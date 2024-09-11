@@ -80,7 +80,6 @@ function addStock(ItemId, qty) {
   tableCells.each(function (index) {
 
     var cellText = $(this).attr('id');
-    // var cellText = $(this).text();
 
     if (index === 1 || (index % columnCount === 1)) { // trace itemId column location in table
       if (cellText === ItemId) { //Check onclick item is already onclick or not
@@ -1003,13 +1002,10 @@ function changeBillH(billhId) { // Change Bill Discount based on the choosed Bil
 
 
 function chooseBillReprint() {
-  const loadingScreen = document.getElementById('tableLoadingScreen');
-  loadingScreen.style.display = "block";
   $.ajax({
     url: "/Sale/PaidBillHList",
     type: "GET",
     success: function (data) {
-      loadingScreen.style.display = "none";
       $('#billReprintListId').empty();
       data.forEach(function (bill) {
 
@@ -1037,7 +1033,6 @@ function chooseBillReprint() {
       });
     },
     error: function () {
-      loadingScreen.style.display = "none";
       alert('Session Expired!');
       window.location.href = '/LogIn/Index';  // Redirect to login
     }
@@ -2153,8 +2148,8 @@ function closeCashType() {
 
 
 function changeStocks(categoryId) {
-  var loadingScreen = document.getElementById('loadingScreen');
-  loadingScreen.style.display = "block";
+
+  $('#loader-wrapper').show();
 
   var inputData = {
     catgId: categoryId
@@ -2167,7 +2162,7 @@ function changeStocks(categoryId) {
     data: inputData,
     success: function (data) {
       $('#tableContainer').html(data);
-      loadingScreen.style.display = "none";
+      $('#loader-wrapper').hide();
     },
     error: function (data) {
       loadingScreen.style.display = "none";
@@ -2180,15 +2175,14 @@ function changeStocks(categoryId) {
 
 
 function allStocks() {
-  var loadingScreen = document.getElementById('loadingScreen');
-  loadingScreen.style.display = "block";
+  $('#loader-wrapper').show();
   $.ajax({
     url: "/Sale/AllStockItems",
     type: "GET",
     dataType: "html",
     success: function (data) {
       $('#tableContainer').html(data);
-      loadingScreen.style.display = "none";
+      $('#loader-wrapper').hide();
     },
     error: function () {
       loadingScreen.style.display = "none";
@@ -2199,18 +2193,16 @@ function allStocks() {
 }
 
 function assemblyStocks() {
-  var loadingScreen = document.getElementById('loadingScreen');
-  loadingScreen.style.display = "block";
+  $('#loader-wrapper').show();
   $.ajax({
     url: "/Sale/AssemblyStockItems",
     type: "GET",
     dataType: "html",
     success: function (data) {
       $('#tableContainer').html(data);
-      loadingScreen.style.display = "none";
+      $('#loader-wrapper').hide();
     },
-    error: function (data) {
-      loadingScreen.style.display = "none";
+    error: function () {
       alert('Session Expired!');
       window.location.href = '/LogIn/Index';  // Redirect to login
     }
@@ -2219,18 +2211,16 @@ function assemblyStocks() {
 
 
 function packageStocks() {
-  var loadingScreen = document.getElementById('loadingScreen');
-  loadingScreen.style.display = "block";
+  $('#loader-wrapper').show();
   $.ajax({
     url: "/Sale/PackageStockItems",
     type: "GET",
     dataType: "html",
     success: function (data) {
       $('#tableContainer').html(data);
-      loadingScreen.style.display = "none";
+      $('#loader-wrapper').hide();
     },
     error: function () {
-      loadingScreen.style.display = "none";
       alert('Session Expired!');
       window.location.href = '/LogIn/Index';  // Redirect to login
     }
@@ -2238,8 +2228,7 @@ function packageStocks() {
 }
 
 function searchStock(keyword) {
-  var loadingScreen = document.getElementById('loadingScreen');
-  loadingScreen.style.display = "block";
+  $('#loader-wrapper').show();
 
   var inputData = {
     keyword: keyword
@@ -2252,7 +2241,7 @@ function searchStock(keyword) {
     data: inputData,
     success: function (data) {
       $('#tableContainer').html(data);
-      loadingScreen.style.display = "none";
+      $('#loader-wrapper').hide();
     },
     error: function () {
       loadingScreen.style.display = "none";

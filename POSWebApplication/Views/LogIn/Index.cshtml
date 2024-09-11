@@ -21,15 +21,13 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <b>Hotel POS</b> <br /> <h5>powered by Fortified City</h5>
-        </div>
         <div id="messageBox" class="alert alert-danger @((ViewBag.AlertMessage != null) ? "" : "d-none")" role="alert">
             @ViewBag.AlertMessage
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
+                <img src="~/images/logo.png"/>
                 <p class="login-box-msg">Please Log In</p>
                 <form asp-action="Index">
                     <div class="input-group mb-3">
@@ -53,6 +51,7 @@
                     </div>
                 </form>
             </div>
+            <p class="text-center">Powered by Fortified City</p>
         </div>
     </div>
     <!-- /.login-box -->

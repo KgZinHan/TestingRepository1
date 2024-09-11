@@ -94,6 +94,38 @@
         text-align: right;
     }
 
+    #loader-wrapper {
+        position: relative;
+        background: #fff; /* background color of the loader wrapper */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #loader {
+        border: 8px solid #f3f3f3; /* light grey */
+        border-top: 8px solid #3498db; /* blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+
+    #content {
+        text-align: center;
+        padding: 20px;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
 </style>
 
 <!--Bill LookUp Modal -->
@@ -131,7 +163,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -172,7 +204,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white">OK</button>
+                <button id="modelCloseBtnId" class="btn btn-info" data-dismiss="modal" x>OK</button>
             </div>
         </div>
     </div>
@@ -214,7 +246,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white" onclick="showConfirmation()">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" data-dismiss="modal" onclick="showConfirmation()">OK</button>
             </div>
         </div>
     </div>
@@ -257,7 +289,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white" onclick="closeCustomerModal()">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" data-dismiss="modal" onclick="closeCustomerModal()">OK</button>
             </div>
         </div>
     </div>
@@ -283,11 +315,11 @@
                 </div>
                 <div class="col-12 row">
                     <input id="inputSelectedTableNo" class="form-control col-6" readonly />
-                    <button class="btn col-3 ml-1" style="background-color: #31849B;color: white" onclick="clearSelectedTableNo()">Clear</button>
+                    <button class="btn btn-info col-3 ml-1" onclick="clearSelectedTableNo()">Clear</button>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white" onclick="closeTableNoModal()">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" data-dismiss="modal" onclick="closeTableNoModal()">OK</button>
             </div>
         </div>
     </div>
@@ -336,8 +368,8 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white;margin-right: auto" onclick="printOrders()">Print</button>
-                <button id="modelCloseBtnId" class="btn" data-dismiss="modal" style="background-color: #31849B;color: white" onclick="closePrintToKitchenModal()">Cancel</button>
+                <button id="modelCloseBtnId" class="btn btn-info" data-dismiss="modal" style="margin-right: auto" onclick="printOrders()">Print</button>
+                <button id="modelCloseBtnId" class="btn btn-info" data-dismiss="modal" onclick="closePrintToKitchenModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -356,12 +388,12 @@
             </div>
             <div class="modal-body table-responsive" style="max-height: 550px">
                 <label class="col-form-label"> Special Instructions</label>
-                <select id="selectSpecInstr" class="form-control select2bs4" data-placeholder="Select Instruction" multiple="multiple" ></select>
+                <select id="selectSpecInstr" class="form-control select2bs4" data-placeholder="Select Instruction" multiple="multiple"></select>
                 <label class="col-form-label"> Custom </label>
                 <input id="inputSpecInstr" type="text" class="form-control" placeholder="Enter Custom Text..." />
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" onclick="addSpecInstr()" style="background-color: #31849B;color: white">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" onclick="addSpecInstr()">OK</button>
             </div>
         </div>
     </div>
@@ -421,10 +453,10 @@
                 </div>
             </div>
             <div class="modal-footer" style="justify-content: flex-start">
-                <input id="inputPaymentCustomer" class="form-control col-md-4" style="text-align: center;background-color: #31849B;color: white;cursor: pointer"
+                <input id="inputPaymentCustomer" class="form-control col-md-4" style="text-align: center;cursor: pointer"
                        onclick="chooseCustomer()" value="Customer" readonly />
 
-                <button id="modelCloseBtnId" type="button" class="btn col-md-3" data-dismiss="modal" onclick="addAllDataToTables()" style="background-color: #31849B; color: white;margin-left: auto">Print</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info col-md-3" data-dismiss="modal" onclick="addAllDataToTables()" style="margin-left: auto">Print</button>
             </div>
 
         </div>
@@ -469,7 +501,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" data-dismiss="modal" onclick="addAllReturnDataToTables()" style="background-color: #31849B; color: white">Return</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" data-dismiss="modal" onclick="addAllReturnDataToTables()">Return</button>
             </div>
         </div>
     </div>
@@ -493,7 +525,7 @@
                 <div class="row mt-1">
                     <label class="col-4 col-form-label text-truncate" style="font-size: 14px">Folio</label>
                     <select id="selectFolio" class="form-control col-4">
-                    <option value="MF">Main Folio</option>
+                        <option value="MF">Main Folio</option>
                     </select>
                 </div>
                 <div class="row mt-1">
@@ -531,11 +563,11 @@
                 </div>
             </div>
             <div class="modal-footer" style="justify-content: flex-start">
-                <input id="inputBtRGuest" class="form-control col-md-4" style="text-align: center;background-color: #31849B;color: white;cursor: pointer"
+                <input id="inputBtRGuest" class="form-control col-md-4" style="text-align: center;cursor: pointer"
                        onclick="openBillToRoomModal()" readonly />
                 <input id="inputBtRRoomNo" type="hidden" />
 
-                <button id="modelCloseBtnId" type="button" class="btn col-md-3" onclick="billToRoom()" style="background-color: #31849B; color: white;margin-left: auto">Send Bill</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info col-md-3" onclick="billToRoom()" style="margin-left: auto">Send Bill</button>
             </div>
 
         </div>
@@ -571,7 +603,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="modelCloseBtnId" type="button" class="btn" onclick="closeBillToRoomModal()" style="background-color: #31849B;color: white">OK</button>
+                <button id="modelCloseBtnId" type="button" class="btn btn-info" onclick="closeBillToRoomModal()">OK</button>
             </div>
         </div>
     </div>
@@ -614,27 +646,18 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="card">
-                    @*<div class="card-header">
-                    <h3 class="card-title">Sale</h3>
-                    <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                    </div>
-                    </div>*@
-                    
                     <div class="card-body" style="max-height: 700px">
                         <div class="row col-12">
-                            <input id="billNoId" class="form-control m-1 custom-color text-truncate" style="font-size: 12px;width: auto;min-width: 60px;" type="text" value="@Model.BillNo" readonly />
-                            <button class="form-control m-1 text-truncate" style="font-size: 12px;width: auto;min-width: 60px;background-color: #31849B;color: white" onclick="clearAll()">Clear</button>
-                            <button id="billSaveId" class="form-control m-1 text-truncate" style="font-size: 12px;width: auto;min-width: 60px;background-color: #31849B;color: white" onclick="addDataToTable()">Save</button>
-                            <button id="billLookUpId" class="form-control m-1 text-truncate" style="font-size: 12px;width: auto;min-width: 60px;background-color: #31849B;color: white" onclick="chooseBillLookUp()" data-toggle="modal" data-target="#billLookUpModal">Lookup</button>
-                            <button id="billReprintId" class="form-control m-1 text-truncate" style="font-size: 12px;width: auto;min-width: 60px;background-color: #31849B;color: white" onclick="chooseBillReprint()" data-toggle="modal" data-target="#billReprintModal">Reprint</button>
-                            <button id="billVoidId" class="form-control m-1 text-truncate" style="font-size: 12px;width: auto;min-width: 60px;background-color: #31849B;color: white" onclick="chooseBillVoidable()" data-toggle="modal" data-target="#billVoidModal">Void</button>
-                            <input id="inputTableNo" class="form-control m-1 text-truncate" style="font-size: 12px;width: 100px;text-align: center;background-color: #31849B;color: white;cursor: pointer"
+                            <input id="billNoId" class="form-control m-1 custom-color text-truncate text-bold" style="font-size: 14px;width: 160px;" value="@Model.BillNo" readonly />
+                            <button class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: auto" onclick="clearAll()">Clear</button>
+                            <button id="billSaveId" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: auto" onclick="addDataToTable()">Save</button>
+                            <button id="billLookUpId" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: auto" onclick="chooseBillLookUp()" data-toggle="modal" data-target="#billLookUpModal">Lookup</button>
+                            <button id="billReprintId" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: auto" onclick="chooseBillReprint()" data-toggle="modal" data-target="#billReprintModal">Reprint</button>
+                            <button id="billVoidId" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: auto" onclick="chooseBillVoidable()" data-toggle="modal" data-target="#billVoidModal">Void</button>
+                            <input id="inputTableNo" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: 100px;text-align: center;cursor: pointer"
                                    onclick="chooseTableNo()" data-toggle="modal" data-target="#tableNoModal" value="Table" readonly />
                         </div>
-                        <div style="max-height: 400px" class="table-responsive">
+                        <div style="max-height: 400px" class="table-responsive mt-2">
                             <table id="saleTable" class="table table-bordered">
                                 <thead class="text-md-center">
                                     <tr style="font-size: 12px">
@@ -670,39 +693,44 @@
                         <div class="row col-12">
                             <div class="mt-2 mb-1 col-md-6">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <input id="inputCustomer" class="form-control col-12" style="text-align: center;background-color: #31849B;color: white;cursor: pointer"
+                                    <div class="col-6 text-center">
+                                        <input id="inputCustomer" class="btn btn-lg btn-info col-10" style="font-size: 12px;cursor: pointer"
                                                onclick="chooseCustomer()" data-toggle="modal" data-target="#customerModal" value="Customer" readonly />
                                         <input id="hiddenCustId" value="" type="hidden" />
                                     </div>
-                                    <div class="col-6">
-                                        <button class="form-control text-truncate col-12" style="font-size: 12px;background-color: #31849B;color: white" onclick="openBillToRoomModal()">Bill to Room</button>
+                                    <div class="col-6 text-center">
+                                        <button class="btn btn-lg btn-info text-truncate col-10" style="font-size: 12px" onclick="openBillToRoomModal()">Bill to Room</button>
                                     </div>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="col-6">
-                                        <button class="form-control text-truncate col-12" style="font-size: 12px;background-color: #31849B;color: white" data-toggle="modal" data-target="#paymentModal" onclick="choosePayment()">Payment</button>
+                                <div class="row mt-1">
+                                    <div class="col-6 text-center">
+                                        <button class="btn btn-lg btn-info text-truncate col-10" style="font-size: 12px" data-toggle="modal" data-target="#paymentModal" onclick="choosePayment()">Payment</button>
                                     </div>
-                                    <div class="col-6">
-                                        <button class="form-control text-truncate col-12" style="font-size: 12px;background-color: #31849B;color: white" data-toggle="modal" data-target="#returnModal" onclick="openReturnModal()">Return</button>
+                                    <div class="col-6 text-center">
+                                        <button class="btn btn-lg btn-info text-truncate col-10" style="font-size: 12px" data-toggle="modal" data-target="#returnModal" onclick="openReturnModal()">Return</button>
                                     </div>
-
                                 </div>
-
-
                             </div>
                             <div class="mt-2 col-md-6 justify-content-end">
-                                <div class="row justify-content-end">
-                                    <label class="col-5 col-form-label text-truncate" style="font-size: 14px">Bill Total</label>
-                                    <input class="form-control col-4" id="billTotal" style="text-align: right" value="0" readonly>
+                                <div class="row">
+                                    <label class="col-6 col-form-label text-truncate text-right" style="font-size: 14px">Bill Total</label>
+                                    <div class="col-6">
+                                        <input class="form-control col-12" id="billTotal" style="text-align: right" value="0" readonly>
+                                    </div>
+
                                 </div>
-                                <div class="row justify-content-end mt-1">
-                                    <label class="col-5 col-form-label text-truncate" style="font-size: 14px">Bill Discount</label>
-                                    <input class="form-control col-4 custom-color" id="billDiscount" onclick="clickFunction(this.id)" style="cursor: pointer;background-color: #31849B;color: white;text-align: right" value="0" readonly>
+                                <div class="row mt-1">
+                                    <label class="col-6 col-form-label text-truncate text-right" style="font-size: 14px">Bill Discount</label>
+                                    <div class="col-6">
+                                        <input class="btn btn-info col-12 custom-color" id="billDiscount" onclick="clickFunction(this.id)" style="cursor: pointer;text-align: right" value="0" readonly>
+                                    </div>
+
                                 </div>
-                                <div class="row justify-content-end mt-1">
-                                    <label class="col-5 col-form-label text-truncate" style="font-size: 14px">Net Amount</label>
-                                    <input class="form-control col-4 custom-color" id="netAmount" style="text-align: right" value="0" readonly>
+                                <div class="row mt-1">
+                                    <label class="col-6 col-form-label text-truncate text-right" style="font-size: 14px">Net Amount</label>
+                                    <div class="col-6">
+                                        <input class="form-control col-12 custom-color" id="netAmount" style="text-align: right" value="0" readonly>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -768,7 +796,9 @@
                         </div>
 
                         <div style="max-height: 470px" class="table-responsive">
-                            <div id="loadingScreen" class="loading-text">Loading...</div>
+                            <div id="loader-wrapper" style="display: none">
+                                <div id="loader"></div>
+                            </div>
                             <div id="tableContainer" class="container">
                                 <div class="row">
                                     @foreach (var item in Model.Stocks)
