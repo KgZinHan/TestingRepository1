@@ -366,10 +366,11 @@ namespace POSWebApplication.Controllers
                             total += decimal.Parse(item[3]) * decimal.Parse(item[4]);
                         }
 
+                        // Add to pmsguestbilling
                         var guestBilling = new PmsGuestbilling()
                         {
                             Refno2 = billNo,
-                            Billdesp = pos.PosDefLoc,
+                            Billdesp = "POS Sale",
                             Bizdte = GetBizDate(),
                             Itemid = pos.PosDefLoc,
                             Itemdesc = "POS Sale",
@@ -393,9 +394,17 @@ namespace POSWebApplication.Controllers
                         };
                         _dbContext.pms_guestbilling.Add(guestBilling);
 
+                        // Update auto number for POS
                         pos.LastUsedNo++;
                         _dbContext.ms_autonumber.Update(pos);
 
+                        // Update auto number for Guest Billing
+                        var autoNumber = _dbContext.ms_autonumber.FirstOrDefault(no => no.PosId == "BILL");
+                        if (autoNumber != null)
+                        {
+                            autoNumber.LastUsedNo += 1;
+                            _dbContext.ms_autonumber.Update(autoNumber);
+                        }
                         await _dbContext.SaveChangesAsync();
 
                     }
