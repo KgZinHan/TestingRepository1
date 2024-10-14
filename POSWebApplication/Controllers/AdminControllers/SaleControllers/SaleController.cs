@@ -45,17 +45,18 @@ namespace POSWebApplication.Controllers
             }
 
             var userCde = HttpContext.User.Claims.FirstOrDefault()?.Value;
-            var UPOS = _dbContext.pos_user
+            var autoNumber = _dbContext.pos_user
+                .Where(u => u.UserCde == userCde)
                 .Join(_dbContext.ms_userpos,
                     user => user.UserId,
                     userPOS => userPOS.UserId,
-                    (user, userPOS) => new
-                    {
-                        user.UserCde,
-                        POSId = userPOS.POSid
-                    })
-                .FirstOrDefault(u => u.UserCde == userCde);
-            var autoNumber = _dbContext.ms_autonumber.FirstOrDefault(pos => pos.PosId == UPOS.POSId) ?? new AutoNumber();
+                    (user, userPOS) => userPOS.POSid)
+                .Join(_dbContext.ms_autonumber,
+                 u => u,
+                 an => an.PosId,
+                 (u, an) => an)
+                .FirstOrDefault() ?? new AutoNumber();
+
             autoNumber.BizDteString = ChangeDateFormat(GetBizDate());
 
             var saleList = new SaleModelList()

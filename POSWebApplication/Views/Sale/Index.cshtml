@@ -419,36 +419,44 @@
                     <input class="form-control col-4" id="changeAmountDisplayId" value="0" readonly>
                 </div>
                 <div class="row mt-1">
-                    <div class="col-md-3">
-                        <table id="paymentTypeTable" class="table table-bordered table-hover">
-                            <thead class="text-md-center">
-                                <tr style="font-size: 12px">
-                                    <th style="text-align: left">
-                                        @Html.DisplayNameFor(model => model.BillP.CurrTyp)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="paymentTypeBodyId" class="text-md-left" style="font-size: 12px">
-                                @*Payment Type Data will be come from Sale.js*@
-                            </tbody>
-                        </table>
+                    <div class="col-md-4">
+                        <div class="col-12">
+                            <div class="table-responsive" style="max-height: 400px">
+                                <table id="paymentTypeTable" class="table table-bordered table-hover">
+                                    <thead class="text-md-center">
+                                        <tr style="font-size: 12px">
+                                            <th style="text-align: left">
+                                                @Html.DisplayNameFor(model => model.BillP.CurrTyp)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="paymentTypeBodyId" class="text-md-left" style="font-size: 12px">
+                                        @*Payment Type Data will be come from Sale.js*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-md-9">
-                        <table id="paymentTable" class="table table-bordered table-hover">
-                            <thead class="text-md-center">
-                                <tr style="font-size: 12px">
-                                    <th style="width: 250px;text-align: left">
-                                        @Html.DisplayNameFor(model => model.BillP.CurrTyp)
-                                    </th>
-                                    <th style="width: 200px;text-align: left">
-                                        @Html.DisplayNameFor(model => model.BillP.PaidAmt)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="paymentTableBodyId" class="text-md-left" style="font-size: 12px">
-                                @*Payment Table Data will be come from Sale.js*@
-                            </tbody>
-                        </table>
+                    <div class="col-md-8">
+                        <div class="table-responsive" style="max-height: 400px">
+                            <table id="paymentTable" class="table table-bordered table-hover">
+                                <thead class="text-md-center">
+                                    <tr style="font-size: 12px">
+                                        <th style="width: 250px;text-align: left">
+                                            @Html.DisplayNameFor(model => model.BillP.CurrTyp)
+                                        </th>
+                                        <th style="width: 200px;text-align: left">
+                                            @Html.DisplayNameFor(model => model.BillP.PaidAmt)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentTableBodyId" class="text-md-left" style="font-size: 12px">
+                                    @*Payment Table Data will be come from Sale.js*@
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -657,8 +665,8 @@
                             <input id="inputTableNo" class="btn btn-info m-1 text-truncate" style="font-size: 12px;width: 100px;text-align: center;cursor: pointer"
                                    onclick="chooseTableNo()" data-toggle="modal" data-target="#tableNoModal" value="Table" readonly />
                         </div>
-                        <div style="max-height: 400px" class="table-responsive mt-2">
-                            <table id="saleTable" class="table table-bordered">
+                        <div id="divTable" class="table-responsive" style="max-height: 400px;overflow-y: auto">
+                            <table id="saleTable" class="table table-bordered  ">
                                 <thead class="text-md-center">
                                     <tr style="font-size: 12px">
                                         <th style="width: 70px;text-align: left">

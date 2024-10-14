@@ -372,6 +372,11 @@ function addStockItem(ItemId, qty) { // Main method of adding
       });
 
       $('#mainBodyId').append(newRow);
+      if ($('#divTable').css('overflow-y') === 'auto') {
+        $('#divTable').scrollTop($('#divTable')[0].scrollHeight);
+      } else {
+        console.error('Table is not scrollable. Please check your CSS.');
+      }
       calculateBillTotal();
 
     },
@@ -1540,7 +1545,8 @@ function addCurrency(currId, currTyp) { // Add payment
   var tdPayCancel = $('<i>').addClass('fas fa-times fa-2x').css({
     'cursor': 'pointer',
     'color': 'red',
-    'padding': '14px'
+    'border': '1px solid silver',
+    'padding': '12px'
   });
   tdPayCancel.on('click', function () {
     var deletedCurrType = $(this).closest('tr').find('td:first').text();

@@ -34,14 +34,14 @@
             <div class="info-box">
                 @if (Model.AutoNumber.CurShift >= Model.AutoNumber.NoOfShift)
                 {
-                    <a asp-controller="Home" asp-action="DayEnd" asp-route-posID="@Model.AutoNumber.PosId">
-                        <button class="btn btn-primary" onclick="return confirm('Are you sure to end day?')"><i class="fas fa-moon fa-2x"></i><br />End of Day</button>
+                    <a asp-controller="Home" asp-action="DayEnd" asp-route-posID="@Model.AutoNumber.PosId" class="btn btn-primary" onclick="return confirm('Are you sure to end day?')">
+                        <i class="fas fa-moon fa-2x"></i><br />End of Day
                     </a>
                 }
                 else
                 {
-                    <a asp-controller="Home" asp-action="ShiftEnd" asp-route-posID="@Model.AutoNumber.PosId">
-                        <button class="btn btn-info" onclick="return confirm('Are you sure to end shift?')"><i class="fas fa-clock fa-2x"></i><br />End of Shift</button>
+                    <a asp-controller="Home" asp-action="ShiftEnd" asp-route-posID="@Model.AutoNumber.PosId" class="btn btn-info" onclick="return confirm('Are you sure to end shift?')">
+                        <i class="fas fa-clock fa-2x"></i><br />End of Shift
                     </a>
                 }
 
@@ -51,6 +51,7 @@
                         Shift No.
                     </span>
                 </div>
+
             </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
@@ -84,149 +85,151 @@
             </div>
         </div>
     </div>
-    
     <div class="row mt-1">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-title row m-1">
-                    <div class="col-sm-6 col-lg-4 row">
-                        <label class="col-6 col-form-label">From Date</label>
-                        <div class="col-6">
-                            <input id="filterFromDate" type="date" class="form-control" oninput="search()" />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-lg-4 row">
+                            <label class="col-6 col-form-label">From Date</label>
+                            <div class="col-6">
+                                <input id="filterFromDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-4 row">
+                            <label class="col-6 col-form-label">To Date</label>
+                            <div class="col-6">
+                                <input id="filterToDate" type="date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 col-lg-3 row">
+                            <label class="col-6 col-form-label">Shift No</label>
+                            <div class="col-4">
+                                <input id="filterShiftNo" type="number" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12 col-md-6 ">
+                            <button class="btn btn-info" onclick="search()">Search</button>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-4 row">
-                        <label class="col-6 col-form-label">To Date</label>
-                        <div class="col-6">
-                            <input id="filterToDate" type="date" class="form-control" oninput="search()" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 row">
-                        <label class="col-6 col-form-label">Shift No</label>
-                        <div class="col-4">
-                            <input id="filterShiftNo" type="number" class="form-control" oninput="search()" />
-                        </div>
-                    </div>
-                </div>
-                <div id="mainTable" class="card-body table-responsive" >
-                    <table id="saleVoucherTable" class="table table-bordered table-hover">
-                        <thead class="text-md-center">
-                            <tr style="font-size: 14px;text-align: left">
-                                <th>
-                                    BillNo
-                                </th>
-                                @* <th>
-                                Action
-                                </th> *@
-                                <th>
-                                    BizDate
-                                </th>
-                                <th>
-                                    Location
-                                </th>
-                                <th>
-                                    ShiftNo
-                                </th>
-                                <th>
-                                    SaleType
-                                </th>
-                                <th>
-                                    CustName
-                                </th>
-                                <th>
-                                    Amount
-                                </th>
-                                <th>
-                                    Discount
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    Remark
-                                </th>
-                                <th>
-                                    User
-                                </th>
-                                <th>
-                                    RevDateTime
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="mainBodyId" class="text-md-left">
-                            @foreach (var billH in Model.BillHList)
-                            {
-                                <tr style="font-size: 14px;cursor: pointer" onclick="showBillDs(@billH.BillhId)">
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.BillNo)
-                                    </td>
-                                    @* <td style="text-align: left">
-                                @Html.DisplayFor(modelItem => billH.Action)
-                                </td> *@
-                                    <td style="text-align: left">
-                                        @Convert.ToDateTime(billH.BizDte).ToString("dd-MM-yyyy")
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.LocCde)
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.ShiftNo)
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.SaleType)
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.GuestNme)
-                                    </td>
-                                    <td style="text-align: right">
-                                        @Html.DisplayFor(modelItem => billH.TotalAmount)
-                                    </td>
-                                    <td style="text-align: right">
-                                        @Html.DisplayFor(modelItem => billH.BillDiscount)
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.Status)
-                                    </td>
-                                    <td style="text-align: left;max-width: 120px" class="text-truncate">
-                                        @Html.DisplayFor(modelItem => billH.Remark)
-                                    </td>
-                                    <td style="text-align: left">
-                                        @Html.DisplayFor(modelItem => billH.User)
-                                    </td>
-                                    <td style="text-align: left" class="text-truncate">
-                                        @Convert.ToDateTime(billH.RevDteTime).ToString("dd-MM-yyyy hh:mm tt ")
-                                    </td>
+                    <div id="mainTable" class="card-body table-responsive">
+                        <table id="saleVoucherTable" class="table table-bordered table-hover">
+                            <thead class="text-md-center">
+                                <tr style="font-size: 14px;text-align: left">
+                                    <th>
+                                        BillNo
+                                    </th>
+                                    @* <th>
+                                    Action
+                                    </th> *@
+                                    <th>
+                                        BizDate
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        ShiftNo
+                                    </th>
+                                    <th>
+                                        SaleType
+                                    </th>
+                                    <th>
+                                        CustName
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                    <th>
+                                        Discount
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Remark
+                                    </th>
+                                    <th>
+                                        User
+                                    </th>
+                                    <th>
+                                        RevDateTime
+                                    </th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="mainBodyId" class="text-md-left">
+                                @foreach (var billH in Model.BillHList)
+                                {
+                                    <tr style="font-size: 14px;cursor: pointer" onclick="showBillDs(@billH.BillhId)">
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.BillNo)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Convert.ToDateTime(billH.BizDte).ToString("dd-MM-yyyy")
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.LocCde)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.ShiftNo)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.SaleType)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.GuestNme)
+                                        </td>
+                                        <td style="text-align: right">
+                                            @Html.DisplayFor(modelItem => billH.TotalAmount)
+                                        </td>
+                                        <td style="text-align: right">
+                                            @Html.DisplayFor(modelItem => billH.BillDiscount)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.Status)
+                                        </td>
+                                        <td style="text-align: left;max-width: 120px" class="text-truncate">
+                                            @Html.DisplayFor(modelItem => billH.Remark)
+                                        </td>
+                                        <td style="text-align: left">
+                                            @Html.DisplayFor(modelItem => billH.User)
+                                        </td>
+                                        <td style="text-align: left" class="text-truncate">
+                                            @Convert.ToDateTime(billH.RevDteTime).ToString("dd-MM-yyyy hh:mm tt ")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
             </div>
         </div>
 
     </div>
-    <div class="row mt-1">
-        <div class="col-6 col-md-4 col-lg-3 row">
-            <div class="col-6">
+    <div class="container-fluid row mt-1">
+        <div class="col-md-6 col-lg-3 form-group row">
+            <label class="col-6 col-form-label text-truncate">
                 Sale Total
-            </div>
-            <div class="card col-6 text-success text-right">
+            </label>
+            <div class="col-6 form-control text-success text-right">
                 @Model.SalesTotal.ToString("N0")
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg-3 row">
-            <div class="col-6">
+        <div class="col-md-6 col-lg-3 form-group row">
+            <label class="col-6 col-form-label  text-truncate">
                 Return Total
-            </div>
-            <div class="card col-6 text-danger text-right">
+            </label>
+            <div class="col-6 form-control text-danger text-right">
                 @Model.ReturnTotal.ToString("N0")
             </div>
         </div>
-        <div class="col-6 col-md-4 col-lg-3 row">
-            <div class="col-6">
+        <div class="col-md-6 col-lg-3 form-group row">
+            <label class="col-6 col-form-label  text-truncate">
                 Void Total
-            </div>
-            <div class="card col-6 text-warning text-right">
+            </label>
+            <div class="col-6 form-control text-warning text-right">
                 @Model.VoidTotal.ToString("N0")
             </div>
         </div>
@@ -258,7 +261,7 @@
         $('#saleVoucherTable').DataTable({
             "paging": true,
             "lengthChange": false,
-            "searching": true,
+            "searching": false,
             "ordering": true,
             "info": false,
             "autoWidth": false,

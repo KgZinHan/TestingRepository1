@@ -5,9 +5,6 @@
             <th>
                 BillNo
             </th>
-            @* <th>
-                Action
-            </th> *@
             <th>
                 BizDate
             </th>
@@ -47,9 +44,6 @@
                 <td style="text-align: left">
                     @Html.DisplayFor(modelItem => billH.BillNo)
                 </td>
-                @* <td style="text-align: left">
-                    @Html.DisplayFor(modelItem => billH.Action)
-                </td> *@
                 <td style="text-align: left">
                     @Convert.ToDateTime(billH.BizDte).ToString("dd-MM-yyyy")
                 </td>
@@ -99,7 +93,7 @@
         $('#saleVoucherTable').DataTable({
             "paging": true,
             "lengthChange": false,
-            "searching": true,
+            "searching": false,
             "ordering": true,
             "info": false,
             "autoWidth": false,
